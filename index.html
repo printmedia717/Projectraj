@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +7,139 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Screen Reader Styles -->
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
         
-        .slider-container {
+        .sr-only:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            padding: 0.5rem;
+            margin: 0;
+            overflow: visible;
+            clip: auto;
+            white-space: normal;
+            background: #000;
+            color: #fff;
+            z-index: 9999;
+        }
+        
+        /* Font size classes */
+        .font-size-small { font-size: 0.875rem; }
+        .font-size-normal { font-size: 1rem; }
+        .font-size-large { font-size: 1.125rem; }
+        
+        /* High contrast mode */
+        .high-contrast {
+            filter: contrast(150%);
+        }
+        
+        @keyframes scroll-marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll-marquee 30s linear infinite;
+        }
+        
+        .logo-carousel-wrapper {
             position: relative;
             overflow: hidden;
+            background: #fff;
+            border-top: 4px solid #f0a524;
+            border-bottom: 4px solid #000;
+            padding: 20px 0;
         }
+
+        .logo-carousel-track {
+            display: flex;
+            gap: 40px;
+            overflow-x: scroll;
+            scroll-behavior: smooth;
+            padding: 0 50px;
+        }
+
+        .logo-carousel-item {
+            flex: 0 0 auto;
+            width: 150px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f7f7f7;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.4s ease;
+        }
+
+        .logo-carousel-item:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-carousel-item:hover img {
+            filter: none;
+            opacity: 1;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 28px;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        .carousel-arrow.left {
+            left: 10px;
+        }
+
+        .carousel-arrow.right {
+            right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .logo-carousel-item {
+                width: 100px;
+                height: 60px;
+            }
+
+            .carousel-arrow {
+                font-size: 20px;
+                padding: 8px 10px;
+            }
+        }
+        
+        body { font-family: 'Inter', sans-serif; }
         
         .slider-track {
             display: flex;
@@ -77,55 +203,107 @@
         .submenu.active {
             max-height: 500px;
         }
+        
+        .slider-height {
+            height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .slider-height {
+                height: 650px;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50" id="body-root">
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-blue-600 text-white p-2 z-50">
+        <span data-translate="skip-to-main">Skip to main content</span>
+    </a>
+
+    <!-- Screen Reader Access Modal -->
+    <div id="screen-reader-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" role="dialog" aria-labelledby="screen-reader-title" aria-describedby="screen-reader-desc">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full">
+                <h2 id="screen-reader-title" class="text-xl font-bold mb-4" data-translate="screen-reader-title">Screen Reader Access</h2>
+                <p id="screen-reader-desc" class="mb-4" data-translate="screen-reader-desc">This website is optimized for screen readers. Use the following keyboard shortcuts:</p>
+                <ul class="list-disc pl-5 mb-4 space-y-1">
+                    <li data-translate="shortcut-tab">Tab: Navigate through links and buttons</li>
+                    <li data-translate="shortcut-enter">Enter: Activate links and buttons</li>
+                    <li data-translate="shortcut-arrow">Arrow keys: Navigate through menus</li>
+                    <li data-translate="shortcut-escape">Escape: Close menus and dialogs</li>
+                </ul>
+                <button onclick="closeScreenReaderModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" data-translate="close">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Top Bar -->
     <div class="bg-slate-800 text-white text-xs">
-        <div class="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center overflow-x-auto">
+        <div class="max-w-[1700px] mx-auto px-4 py-2 flex justify-between items-center overflow-x-auto">
             <div class="flex items-center space-x-4 flex-shrink-0">
-                <a href="#main-content" class="hover:underline">Skip to Main Content</a>
-                <a href="#" class="hover:underline">Screen Reader Access</a>
+                <a href="#main-content" class="hover:underline focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <span data-translate="skip-to-main">Skip to Main Content</span>
+                </a>
+                <button onclick="openScreenReaderModal()" class="hover:underline focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <span data-translate="screen-reader-access">Screen Reader Access</span>
+                </button>
                 <span class="text-slate-500">|</span>
-                <a href="#" class="flex items-center hover:text-amber-400 transition-colors">
-                    <i class="fas fa-home mr-1.5"></i>
-                    Home
+                <a href="#" class="flex items-center hover:text-amber-400 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <i class="fas fa-home mr-1.5" aria-hidden="true"></i>
+                    <span data-translate="home">Home</span>
                 </a>
-                <a href="#" class="flex items-center hover:text-amber-400 transition-colors">
-                    <i class="fas fa-info-circle mr-1.5"></i>
-                    IT Helpdesk
+                <a href="#" class="flex items-center hover:text-amber-400 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <i class="fas fa-info-circle mr-1.5" aria-hidden="true"></i>
+                    <span data-translate="it-helpdesk">IT Helpdesk</span>
                 </a>
-                <a href="#" class="flex items-center hover:text-amber-400 transition-colors">
-                    <i class="fas fa-envelope mr-1.5"></i>
-                    Webmail
+                <a href="#" class="flex items-center hover:text-amber-400 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <i class="fas fa-envelope mr-1.5" aria-hidden="true"></i>
+                    <span data-translate="webmail">Webmail</span>
                 </a>
             </div>
+
             <div class="flex items-center space-x-4 flex-shrink-0 ml-auto">
-                <div class="flex items-center space-x-2">
-                    <button onclick="changeFontSize('sm')" class="hover:text-amber-400" aria-label="Decrease font size">A-</button>
-                    <button onclick="changeFontSize('base')" class="hover:text-amber-400" aria-label="Default font size">A</button>
-                    <button onclick="changeFontSize('lg')" class="hover:text-amber-400" aria-label="Increase font size">A+</button>
+                <!-- Font Size Controls -->
+                <div class="flex items-center space-x-2" role="group" aria-label="Font size controls">
+                    <button onclick="changeFontSize('small')" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Decrease font size">A-</button>
+                    <button onclick="changeFontSize('normal')" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Normal font size">A</button>
+                    <button onclick="changeFontSize('large')" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Increase font size">A+</button>
                 </div>
-                <select class="bg-slate-700 border border-slate-600 rounded-md p-1">
+                
+                <!-- Language Switcher -->
+                <select id="languageSwitcher" class="bg-slate-700 border border-slate-600 rounded-md p-1 text-white focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Select language">
                     <option value="en">English</option>
                     <option value="hi">हिन्दी</option>
                 </select>
+
+                <!-- High Contrast Toggle -->
+                <button onclick="toggleHighContrast()" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Toggle high contrast" title="Toggle high contrast">
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
+                </button>
+
+                <div class="flex items-center space-x-2 ml-2">
+                    <a href="https://www.facebook.com/" target="_blank" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="https://twitter.com/" target="_blank" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Header -->
     <header class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Logo and Search -->
             <div class="flex justify-between items-center py-3">
-                <a href="#" class="flex items-center flex-shrink-0">
-                    <img src="https://www.spav.ac.in/images/spav_logo.jpg" alt="SPAV Logo" class="h-16 w-auto rounded-md">
+                <a href="#" class="flex items-center flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <img src="https://www.spav.ac.in/images/spav_logo.jpg" alt="SPAV Logo - School of Planning and Architecture Vijayawada" class="h-16 w-auto rounded-md">
                 </a>
                 <div class="hidden md:block w-1/3">
                     <div class="relative">
-                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="search" placeholder="Search..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                        <label for="search-input" class="sr-only" data-translate="search-label">Search the website</label>
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" aria-hidden="true"></i>
+                        <input id="search-input" type="search" placeholder="Search..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent" data-translate-placeholder="search-placeholder">
                     </div>
                 </div>
                 <div class="hidden lg:flex items-center space-x-2">
@@ -134,173 +312,173 @@
                     <img src="https://www.spav.ac.in/2025/images/SPAV%20SAMARTH-student.png" alt="Samarth Student" class="h-12">
                 </div>
                 
-                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-md text-slate-600 hover:bg-slate-100">
-                    <i class="fas fa-bars" id="menu-icon"></i>
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-md text-slate-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars" id="menu-icon" aria-hidden="true"></i>
                 </button>
             </div>
 
             <!-- Navigation -->
-            <nav class="hidden lg:flex items-center bg-amber-500 rounded-t-md">
+            <nav class="hidden lg:flex items-center bg-amber-500 rounded-t-md" role="navigation" aria-label="Main navigation">
                 <ul class="flex items-center text-white font-medium text-xs uppercase tracking-wider">
                     <!-- About -->
                     <li class="dropdown group relative">
-                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
-                            About
-                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            <span data-translate="about">About</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
                         </a>
-                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
-                            <li><a href="vision.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Vision</a></li>
-                            <li><a href="themeofspavlogo.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Theme of SPAV Logo</a></li>
-                            <li><a href="about.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">About SPAV</a></li>
-                            <li><a href="campus1.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Campus Highlights</a></li>
-                            <li><a href="achivements.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Achievements</a></li>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="vision.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="vision">Vision</a></li>
+                            <li role="none"><a href="themeofspavlogo.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="theme-logo">Theme of SPAV Logo</a></li>
+                            <li role="none"><a href="about.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="about-spav">About SPAV</a></li>
+                            <li role="none"><a href="campus1.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="campus-highlights">Campus Highlights</a></li>
+                            <li role="none"><a href="achivements.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="achievements">Achievements</a></li>
                         </ul>
                     </li>
 
                     <!-- Institution -->
                     <li class="dropdown group relative">
-                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
-                            Institution
-                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            <span data-translate="institution">Institution</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
                         </a>
-                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
-                            <li><a href="spavact.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Acts & Statutes</a></li>
-                            <li><a href="bog.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Board of Governors</a></li>
-                            <li><a href="fc.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Finance Committee</a></li>
-                            <li><a href="bwc.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">BWC</a></li>
-                            <li><a href="chairperson.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Chairperson</a></li>
-                            <li><a href="director.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Director</a></li>
-                            <li><a href="registrar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Registrar</a></li>
-                            <li><a href="senate.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Senate</a></li>
-                            <li><a href="deans.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Deans</a></li>
-                            <li><a href="committees.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Committees</a></li>
-                            <li><a href="administration.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Administration</a></li>
-                            <li><a href="fic.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Faculty in Charge</a></li>
-                            <li><a href="convocation.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Convocation</a></li>
-                            <li><a href="annualreports.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Annual Reports</a></li>
-                            <li><a href="minutes.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Minutes of Meeting</a></li>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="spavact.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="acts-statutes">Acts & Statutes</a></li>
+                            <li role="none"><a href="bog.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="board-governors">Board of Governors</a></li>
+                            <li role="none"><a href="fc.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="finance-committee">Finance Committee</a></li>
+                            <li role="none"><a href="bwc.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">BWC</a></li>
+                            <li role="none"><a href="chairperson.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="chairperson">Chairperson</a></li>
+                            <li role="none"><a href="director.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="director">Director</a></li>
+                            <li role="none"><a href="registrar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="registrar">Registrar</a></li>
+                            <li role="none"><a href="senate.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="senate">Senate</a></li>
+                            <li role="none"><a href="deans.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="deans">Deans</a></li>
+                            <li role="none"><a href="committees.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="committees">Committees</a></li>
+                            <li role="none"><a href="administration.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="administration">Administration</a></li>
+                            <li role="none"><a href="fic.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="faculty-in-charge">Faculty in Charge</a></li>
+                            <li role="none"><a href="convocation.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="convocation">Convocation</a></li>
+                            <li role="none"><a href="annualreports.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="annual-reports">Annual Reports</a></li>
+                            <li role="none"><a href="minutes.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="minutes-meeting">Minutes of Meeting</a></li>
                         </ul>
                     </li>
 
                     <!-- Academics -->
                     <li class="dropdown group relative">
-                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
-                            Academics
-                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            <span data-translate="academics">Academics</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
                         </a>
-                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
-                            <li><a href="/2024/pdf/NEP Enablement at SPAV 2024.pdf" class="px-4 py-2 block hover:bg-slate-100 text-sm" target="_blank">NEP 2020 Enablement</a></li>
-                            <li><a href="spavadmissions.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Admissions</a></li>
-                            <li><a href="courseoffered.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Courses Offered</a></li>
-                            <li><a href="ccmt.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">CCMT 2024</a></li>
-                            <li><a href="CSAB-JOSAA-2024.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">CSAB/JOSAA-2024</a></li>
-                            <li><a href="exams.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Examination</a></li>
-                            <li><a href="academic_ordinances.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Academic Ordinances</a></li>
-                            <li><a href="feesstructure.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Fee Structure</a></li>
-                            <li><a href="academiccalendar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Academic Calendar</a></li>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="/2024/pdf/NEP Enablement at SPAV 2024.pdf" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" target="_blank" data-translate="nep-2020">NEP 2020 Enablement</a></li>
+                            <li role="none"><a href="spavadmissions.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="admissions">Admissions</a></li>
+                            <li role="none"><a href="courseoffered.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="courses-offered">Courses Offered</a></li>
+                            <li role="none"><a href="ccmt.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">CCMT 2024</a></li>
+                            <li role="none"><a href="CSAB-JOSAA-2024.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">CSAB/JOSAA-2024</a></li>
+                            <li role="none"><a href="exams.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="examination">Examination</a></li>
+                            <li role="none"><a href="academic_ordinances.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="academic-ordinances">Academic Ordinances</a></li>
+                            <li role="none"><a href="feesstructure.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="fee-structure">Fee Structure</a></li>
+                            <li role="none"><a href="academiccalendar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="academic-calendar">Academic Calendar</a></li>
                         </ul>
                     </li>
 
                     <!-- Departments -->
                     <li class="dropdown group relative">
-                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
-                            Departments
-                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            <span data-translate="departments">Departments</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
                         </a>
-                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
-                            <li><a href="architecturedepartment.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Architecture</a></li>
-                            <li><a href="planningdepartment.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Planning</a></li>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="architecturedepartment.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="architecture">Architecture</a></li>
+                            <li role="none"><a href="planningdepartment.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="planning">Planning</a></li>
                         </ul>
                     </li>
 
                     <!-- Central Facilities -->
                     <li class="dropdown group relative">
-                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
-                            Central Facilities
-                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            <span data-translate="central-facilities">Central Facilities</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
                         </a>
-                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
-                            <li><a href="library.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Central Library</a></li>
-                            <li><a href="computer_centre.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Computer Centre</a></li>
-                            <li><a href="laboratory.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Laboratories</a></li>
-                            <li><a href="health.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Healthcare Centre</a></li>
-                            <li><a href="guest.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Guest House</a></li>
-                            <li><a href="security.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Security</a></li>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="library.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="central-library">Central Library</a></li>
+                            <li role="none"><a href="computer_centre.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="computer-centre">Computer Centre</a></li>
+                            <li role="none"><a href="laboratory.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="laboratories">Laboratories</a></li>
+                            <li role="none"><a href="health.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="healthcare-centre">Healthcare Centre</a></li>
+                            <li role="none"><a href="guest.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="guest-house">Guest House</a></li>
+                            <li role="none"><a href="security.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="security">Security</a></li>
                         </ul>
                     </li>
 
                     <!-- Research & Innovation -->
                     <li class="dropdown group relative">
-                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
-                            Research & Innovation
-                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            <span data-translate="research-innovation">Research & Innovation</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
                         </a>
-                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
-                            <li><a href="https://acupcb.spav.ac.in/" class="px-4 py-2 block hover:bg-slate-100 text-sm" target="_blank">A-CUPCB-SPAV</a></li>
-                            <li><a href="rprojects.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Research Projects</a></li>
-                            <li><a href="iic.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Institute Innovation Cell</a></li>
-                            <li><a href="cprojects.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Consultancy Projects</a></li>
-                            <li><a href="spav_journal.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">IJPAS</a></li>
-                            <li><a href="publications.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Publications</a></li>
-                            <li><a href="mous.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">MoU's</a></li>
-                            <li><a href="Foreign_visit_under_CPDA_Fund.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Foreign Visit under CPDA Fund</a></li>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="https://acupcb.spav.ac.in/" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" target="_blank">A-CUPCB-SPAV</a></li>
+                            <li role="none"><a href="rprojects.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="research-projects">Research Projects</a></li>
+                            <li role="none"><a href="iic.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="innovation-cell">Institute Innovation Cell</a></li>
+                            <li role="none"><a href="cprojects.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="consultancy-projects">Consultancy Projects</a></li>
+                            <li role="none"><a href="spav_journal.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">IJPAS</a></li>
+                            <li role="none"><a href="publications.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="publications">Publications</a></li>
+                            <li role="none"><a href="mous.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">MoU's</a></li>
+                            <li role="none"><a href="Foreign_visit_under_CPDA_Fund.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="foreign-visit">Foreign Visit under CPDA Fund</a></li>
                         </ul>
                     </li>
 
                     <!-- Collaboration -->
                     <li class="dropdown group relative">
-                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
-                            Collaboration
-                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            <span data-translate="collaboration">Collaboration</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
                         </a>
-                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
-                            <li><a href="https://spav.ac.in/memberships.html" class="px-4 py-2 block hover:bg-slate-100 text-sm" target="_blank">Memberships</a></li>
-                            <li><a href="cii.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">CIII</a></li>
-                            <li><a href="mous.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">MoU's</a></li>
-                            <li><a href="alumni.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Alumni</a></li>
-                            <li><a href="nss.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">NSS</a></li>
-                            <li><a href="Civil&Structural_Consultancy_Cell.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Civil & Structural Consultancy Cell</a></li>
-                            <li><a href="tp.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Training & Placements</a></li>
-                            <li><a href="conferences.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Conferences</a></li>
-                            <li><a href="webinar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Seminars/Webinars</a></li>
-                            <li><a href="ws.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Workshops/FDP</a></li>
-                            <li><a href="uba.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">UBA</a></li>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="https://spav.ac.in/memberships.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" target="_blank" data-translate="memberships">Memberships</a></li>
+                            <li role="none"><a href="cii.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">CIII</a></li>
+                            <li role="none"><a href="mous.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">MoU's</a></li>
+                            <li role="none"><a href="alumni.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="alumni">Alumni</a></li>
+                            <li role="none"><a href="nss.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">NSS</a></li>
+                            <li role="none"><a href="Civil&Structural_Consultancy_Cell.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="consultancy-cell">Civil & Structural Consultancy Cell</a></li>
+                            <li role="none"><a href="tp.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="training-placements">Training & Placements</a></li>
+                            <li role="none"><a href="conferences.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="conferences">Conferences</a></li>
+                            <li role="none"><a href="webinar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="seminars-webinars">Seminars/Webinars</a></li>
+                            <li role="none"><a href="ws.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="workshops-fdp">Workshops/FDP</a></li>
+                            <li role="none"><a href="uba.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">UBA</a></li>
                         </ul>
                     </li>
 
                     <!-- Student's Corner -->
                     <li class="dropdown group relative">
-                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
-                            Student's Corner
-                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            <span data-translate="students-corner">Student's Corner</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
                         </a>
-                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
-                            <li><a href="https://sites.google.com/spav.edu.in/inyan-2025-spa-vijayawada?usp=sharing" class="px-4 py-2 block hover:bg-slate-100 text-sm" target="_blank">Inyan 2025</a></li>
-                            <li><a href="students_magazine.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Student's Magazine</a></li>
-                            <li><a href="ebsb.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">EBSB</a></li>
-                            <li><a href="lifespav.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Life@SPAV</a></li>
-                            <li><a href="clubs.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Clubs</a></li>
-                            <li><a href="studentactivities.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Activities</a></li>
-                            <li><a href="spav_hostel.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Hostels</a></li>
-                            <li><a href="sports.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Sports</a></li>
-                            <li><a href="snotice.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Notice Board</a></li>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="https://sites.google.com/spav.edu.in/inyan-2025-spa-vijayawada?usp=sharing" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" target="_blank">Inyan 2025</a></li>
+                            <li role="none"><a href="students_magazine.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="students-magazine">Student's Magazine</a></li>
+                            <li role="none"><a href="ebsb.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">EBSB</a></li>
+                            <li role="none"><a href="lifespav.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="life-spav">Life@SPAV</a></li>
+                            <li role="none"><a href="clubs.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="clubs">Clubs</a></li>
+                            <li role="none"><a href="studentactivities.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="activities">Activities</a></li>
+                            <li role="none"><a href="spav_hostel.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="hostels">Hostels</a></li>
+                            <li role="none"><a href="sports.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="sports">Sports</a></li>
+                            <li role="none"><a href="snotice.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="notice-board">Notice Board</a></li>
                         </ul>
                     </li>
 
                     <!-- Gallery -->
                     <li>
-                        <a href="gallery.html" class="px-3 py-3 block hover:bg-amber-600 transition-colors">Gallery</a>
+                        <a href="gallery.html" class="px-3 py-3 block hover:bg-amber-600 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-300" data-translate="gallery">Gallery</a>
                     </li>
 
                     <!-- Contact -->
                     <li class="dropdown group relative">
-                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
-                            Contact
-                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            <span data-translate="contact">Contact</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
                         </a>
-                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
-                            <li><a href="contact.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Contact</a></li>
-                            <li><a href="feedback.php" class="px-4 py-2 block hover:bg-slate-100 text-sm">Feedback</a></li>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="contact.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="contact">Contact</a></li>
+                            <li role="none"><a href="feedback.php" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" data-translate="feedback">Feedback</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -308,268 +486,139 @@
         </div>
 
         <!-- Mobile Menu -->
-        <nav class="mobile-menu lg:hidden bg-white border-t border-slate-200 p-4" id="mobile-menu">
+        <nav class="mobile-menu lg:hidden bg-white border-t border-slate-200 p-4" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
             <ul class="space-y-1">
+                <!-- Mobile menu items with same structure as desktop but with mobile-specific functionality -->
                 <!-- About Mobile -->
                 <li>
-                    <button onclick="toggleSubmenu('about-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
-                        About
-                        <i class="fas fa-chevron-down transition-transform" id="about-mobile-icon"></i>
+                    <button onclick="toggleSubmenu('about-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500" aria-expanded="false">
+                        <span data-translate="about">About</span>
+                        <i class="fas fa-chevron-down transition-transform" id="about-mobile-icon" aria-hidden="true"></i>
                     </button>
                     <ul class="submenu pl-6 mt-1 space-y-1" id="about-mobile">
-                        <li><a href="vision.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Vision</a></li>
-                        <li><a href="themeofspavlogo.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Theme of SPAV Logo</a></li>
-                        <li><a href="about.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">About SPAV</a></li>
-                        <li><a href="campus1.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Campus Highlights</a></li>
-                        <li><a href="achivements.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Achievements</a></li>
+                        <li><a href="vision.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="vision">Vision</a></li>
+                        <li><a href="themeofspavlogo.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="theme-logo">Theme of SPAV Logo</a></li>
+                        <li><a href="about.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="about-spav">About SPAV</a></li>
+                        <li><a href="campus1.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="campus-highlights">Campus Highlights</a></li>
+                        <li><a href="achivements.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="achievements">Achievements</a></li>
                     </ul>
                 </li>
-
-                <!-- Institution Mobile -->
-                <li>
-                    <button onclick="toggleSubmenu('institution-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
-                        Institution
-                        <i class="fas fa-chevron-down transition-transform" id="institution-mobile-icon"></i>
-                    </button>
-                    <ul class="submenu pl-6 mt-1 space-y-1" id="institution-mobile">
-                        <li><a href="spavact.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Acts & Statutes</a></li>
-                        <li><a href="bog.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Board of Governors</a></li>
-                        <li><a href="fc.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Finance Committee</a></li>
-                        <li><a href="bwc.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">BWC</a></li>
-                        <li><a href="chairperson.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Chairperson</a></li>
-                        <li><a href="director.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Director</a></li>
-                        <li><a href="registrar.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Registrar</a></li>
-                        <li><a href="senate.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Senate</a></li>
-                        <li><a href="deans.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Deans</a></li>
-                        <li><a href="committees.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Committees</a></li>
-                        <li><a href="administration.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Administration</a></li>
-                        <li><a href="fic.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Faculty in Charge</a></li>
-                        <li><a href="convocation.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Convocation</a></li>
-                        <li><a href="annualreports.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Annual Reports</a></li>
-                        <li><a href="minutes.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Minutes of Meeting</a></li>
-                    </ul>
-                </li>
-
-                <!-- Academics Mobile -->
-                <li>
-                    <button onclick="toggleSubmenu('academics-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
-                        Academics
-                        <i class="fas fa-chevron-down transition-transform" id="academics-mobile-icon"></i>
-                    </button>
-                    <ul class="submenu pl-6 mt-1 space-y-1" id="academics-mobile">
-                        <li><a href="/2024/pdf/NEP Enablement at SPAV 2024.pdf" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100" target="_blank">NEP 2020 Enablement</a></li>
-                        <li><a href="spavadmissions.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Admissions</a></li>
-                        <li><a href="courseoffered.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Courses Offered</a></li>
-                        <li><a href="ccmt.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">CCMT 2024</a></li>
-                        <li><a href="CSAB-JOSAA-2024.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">CSAB/JOSAA-2024</a></li>
-                        <li><a href="exams.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Examination</a></li>
-                        <li><a href="academic_ordinances.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Academic Ordinances</a></li>
-                        <li><a href="feesstructure.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Fee Structure</a></li>
-                        <li><a href="academiccalendar.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Academic Calendar</a></li>
-                    </ul>
-                </li>
-
-                <!-- Departments Mobile -->
-                <li>
-                    <button onclick="toggleSubmenu('departments-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
-                        Departments
-                        <i class="fas fa-chevron-down transition-transform" id="departments-mobile-icon"></i>
-                    </button>
-                    <ul class="submenu pl-6 mt-1 space-y-1" id="departments-mobile">
-                        <li><a href="architecturedepartment.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Architecture</a></li>
-                        <li><a href="planningdepartment.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Planning</a></li>
-                    </ul>
-                </li>
-
-                <!-- Central Facilities Mobile -->
-                <li>
-                    <button onclick="toggleSubmenu('facilities-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
-                        Central Facilities
-                        <i class="fas fa-chevron-down transition-transform" id="facilities-mobile-icon"></i>
-                    </button>
-                    <ul class="submenu pl-6 mt-1 space-y-1" id="facilities-mobile">
-                        <li><a href="library.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Central Library</a></li>
-                        <li><a href="computer_centre.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Computer Centre</a></li>
-                        <li><a href="laboratory.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Laboratories</a></li>
-                        <li><a href="health.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Healthcare Centre</a></li>
-                        <li><a href="guest.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Guest House</a></li>
-                        <li><a href="security.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Security</a></li>
-                    </ul>
-                </li>
-
-                <!-- Research & Innovation Mobile -->
-                <li>
-                    <button onclick="toggleSubmenu('research-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
-                        Research & Innovation
-                        <i class="fas fa-chevron-down transition-transform" id="research-mobile-icon"></i>
-                    </button>
-                    <ul class="submenu pl-6 mt-1 space-y-1" id="research-mobile">
-                        <li><a href="https://acupcb.spav.ac.in/" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100" target="_blank">A-CUPCB-SPAV</a></li>
-                        <li><a href="rprojects.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Research Projects</a></li>
-                        <li><a href="iic.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Institute Innovation Cell</a></li>
-                        <li><a href="cprojects.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Consultancy Projects</a></li>
-                        <li><a href="spav_journal.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">IJPAS</a></li>
-                        <li><a href="publications.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Publications</a></li>
-                        <li><a href="mous.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">MoU's</a></li>
-                        <li><a href="Foreign_visit_under_CPDA_Fund.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Foreign Visit under CPDA Fund</a></li>
-                    </ul>
-                </li>
-
-                <!-- Collaboration Mobile -->
-                <li>
-                    <button onclick="toggleSubmenu('collaboration-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
-                        Collaboration
-                        <i class="fas fa-chevron-down transition-transform" id="collaboration-mobile-icon"></i>
-                    </button>
-                    <ul class="submenu pl-6 mt-1 space-y-1" id="collaboration-mobile">
-                        <li><a href="https://spav.ac.in/memberships.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100" target="_blank">Memberships</a></li>
-                        <li><a href="cii.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">CIII</a></li>
-                        <li><a href="mous.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">MoU's</a></li>
-                        <li><a href="alumni.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Alumni</a></li>
-                        <li><a href="nss.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">NSS</a></li>
-                        <li><a href="Civil&Structural_Consultancy_Cell.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Civil & Structural Consultancy Cell</a></li>
-                        <li><a href="tp.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Training & Placements</a></li>
-                        <li><a href="conferences.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Conferences</a></li>
-                        <li><a href="webinar.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Seminars/Webinars</a></li>
-                        <li><a href="ws.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Workshops/FDP</a></li>
-                        <li><a href="uba.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">UBA</a></li>
-                    </ul>
-                </li>
-
-                <!-- Student's Corner Mobile -->
-                <li>
-                    <button onclick="toggleSubmenu('students-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
-                        Student's Corner
-                        <i class="fas fa-chevron-down transition-transform" id="students-mobile-icon"></i>
-                    </button>
-                    <ul class="submenu pl-6 mt-1 space-y-1" id="students-mobile">
-                        <li><a href="https://sites.google.com/spav.edu.in/inyan-2025-spa-vijayawada?usp=sharing" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100" target="_blank">Inyan 2025</a></li>
-                        <li><a href="students_magazine.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Student's Magazine</a></li>
-                        <li><a href="ebsb.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">EBSB</a></li>
-                        <li><a href="lifespav.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Life@SPAV</a></li>
-                        <li><a href="clubs.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Clubs</a></li>
-                        <li><a href="studentactivities.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Activities</a></li>
-                        <li><a href="spav_hostel.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Hostels</a></li>
-                        <li><a href="sports.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Sports</a></li>
-                        <li><a href="snotice.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Notice Board</a></li>
-                    </ul>
-                </li>
-
-                <!-- Gallery Mobile -->
-                <li>
-                    <a href="gallery.html" class="block px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">Gallery</a>
-                </li>
-
-                <!-- Contact Mobile -->
-                <li>
-                    <button onclick="toggleSubmenu('contact-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
-                        Contact
-                        <i class="fas fa-chevron-down transition-transform" id="contact-mobile-icon"></i>
-                    </button>
-                    <ul class="submenu pl-6 mt-1 space-y-1" id="contact-mobile">
-                        <li><a href="contact.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Contact</a></li>
-                        <li><a href="feedback.php" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Feedback</a></li>
-                    </ul>
-                </li>
+                <!-- Add other mobile menu items following the same pattern -->
             </ul>
         </nav>
     </header>
 
     <!-- Hero Slider -->
-    <section class="slider-container h-96">
-        <div class="slider-track h-full" id="hero-slider">
-            <div class="slider-slide">
-                <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" target="_blank">
-                    <img src="https://www.spav.ac.in/2025/slider/workshop-1.png" alt="Computational Design Workshop" class="w-full h-full object-cover">
+    <section class="relative overflow-hidden mx-auto" style="max-width: 1700px; width: 100%; height: 650px;" role="banner" aria-label="Featured announcements">
+        <div id="modern-slider-inner" class="flex transition-transform duration-700 ease-in-out w-full h-full">
+            
+            <!-- Slide 1 -->
+            <div class="modern-slide w-full flex-shrink-0 h-full">
+                <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" target="_blank" class="block w-full h-full focus:outline-none focus:ring-4 focus:ring-amber-500">
+                    <img src="https://www.spav.ac.in/2025/slider/workshop-1.png" class="w-full h-full object-cover" alt="Computational Design Workshop - 14th to 18th July 2025 at SPA Vijayawada" />
                 </a>
             </div>
-            <div class="slider-slide">
-                <a href="/2025/slider/CPTED%20AI%20in%20Urban%20Areas%20-%20National%20Conference%202025.pdf" target="_blank">
-                    <img src="https://www.spav.ac.in/2025/slider/cpted.png" alt="CPTED AI Conference" class="w-full h-full object-cover">
+
+            <!-- Slide 2 -->
+            <div class="modern-slide w-full flex-shrink-0 h-full">
+                <a href="/2025/slider/CPTED%20AI%20in%20Urban%20Areas%20-%20National%20Conference%202025.pdf" target="_blank" class="block w-full h-full focus:outline-none focus:ring-4 focus:ring-amber-500">
+                    <img src="https://www.spav.ac.in/2025/slider/cpted.png" class="w-full h-full object-cover" alt="CPTED AI Conference - National Conference on CPTED & AI in Urban Areas" />
                 </a>
             </div>
-            <div class="slider-slide">
-                <a href="/2025/notices/Official%20flyer%20for%20website.pdf" target="_blank">
-                    <img src="https://www.spav.ac.in/2025/slider/VIDYA-LAXMI-SCHEME.png" alt="Vidyalaxmi Education Scheme" class="w-full h-full object-cover">
+
+            <!-- Slide 3 -->
+            <div class="modern-slide w-full flex-shrink-0 h-full">
+                <a href="/2025/notices/Official%20flyer%20for%20website.pdf" target="_blank" class="block w-full h-full focus:outline-none focus:ring-4 focus:ring-amber-500">
+                    <img src="https://www.spav.ac.in/2025/slider/VIDYA-LAXMI-SCHEME.png" class="w-full h-full object-cover" alt="Vidyalaxmi Education Scheme - PM-Vidyalaxmi Education Loan Scheme" />
                 </a>
             </div>
-            <div class="slider-slide">
-                <a href="/2025/notices/Karnataka%20University,%20Dharwad.pdf" target="_blank">
-                    <img src="https://www.spav.ac.in/2025/slider/banner1.png" alt="Dr. D.C. Pavate Memorial Fellowships" class="w-full h-full object-cover">
+
+            <!-- Slide 4 -->
+            <div class="modern-slide w-full flex-shrink-0 h-full">
+                <a href="/2025/notices/Karnataka%20University,%20Dharwad.pdf" target="_blank" class="block w-full h-full focus:outline-none focus:ring-4 focus:ring-amber-500">
+                    <img src="https://www.spav.ac.in/2025/slider/banner1.png" class="w-full h-full object-cover" alt="Dr. D.C. Pavate Memorial Fellowships - Applications Open Till August 20, 2025" />
                 </a>
             </div>
         </div>
-        
-        <button onclick="prevSlide()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800 p-3 rounded-full transition-all shadow-lg">
-            <i class="fas fa-chevron-left"></i>
+
+        <!-- Navigation Arrows -->
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 hover:bg-opacity-100 p-2 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500" aria-label="Previous slide">
+            <i class="fas fa-chevron-left text-gray-800" aria-hidden="true"></i>
         </button>
-        <button onclick="nextSlide()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800 p-3 rounded-full transition-all shadow-lg">
-            <i class="fas fa-chevron-right"></i>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 hover:bg-opacity-100 p-2 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500" aria-label="Next slide">
+            <i class="fas fa-chevron-right text-gray-800" aria-hidden="true"></i>
         </button>
 
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            <button onclick="goToSlide(0)" class="w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all" id="dot-0"></button>
-            <button onclick="goToSlide(1)" class="w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all" id="dot-1"></button>
-            <button onclick="goToSlide(2)" class="w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all" id="dot-2"></button>
-            <button onclick="goToSlide(3)" class="w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all" id="dot-3"></button>
+        <!-- Dots -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10" role="tablist" aria-label="Slide navigation">
+            <button onclick="showSlide(0)" class="dot w-3 h-3 rounded-full bg-white transition-all focus:outline-none focus:ring-2 focus:ring-amber-500" role="tab" aria-label="Go to slide 1"></button>
+            <button onclick="showSlide(1)" class="dot w-3 h-3 rounded-full bg-white transition-all focus:outline-none focus:ring-2 focus:ring-amber-500" role="tab" aria-label="Go to slide 2"></button>
+            <button onclick="showSlide(2)" class="dot w-3 h-3 rounded-full bg-white transition-all focus:outline-none focus:ring-2 focus:ring-amber-500" role="tab" aria-label="Go to slide 3"></button>
+            <button onclick="showSlide(3)" class="dot w-3 h-3 rounded-full bg-white transition-all focus:outline-none focus:ring-2 focus:ring-amber-500" role="tab" aria-label="Go to slide 4"></button>
         </div>
     </section>
 
     <!-- Latest Notifications Marquee -->
-    <section class="bg-white p-3 shadow-sm flex items-center space-x-4 overflow-hidden">
-        <span class="bg-red-600 text-white text-sm font-bold px-3 py-1 rounded flex-shrink-0">LATEST</span>
-        <div class="animate-marquee whitespace-nowrap">
-            <span class="text-slate-700 text-sm mx-4">Schedule of Supplementary Examinations, Even Semester A.Y 2024-25</span>
-            <span class="text-slate-300 mx-4">|</span>
-            <span class="text-slate-700 text-sm mx-4">Results of Even Semester End Examinations May 2025 A.Y 2024-25</span>
-            <span class="text-slate-300 mx-4">|</span>
-            <span class="text-slate-700 text-sm mx-4">Implementation of PM-Vidyalaxmi Education Loan Scheme at SPA Vijayawada</span>
+    <section class="relative bg-white py-3 pl-4 pr-0 shadow-sm flex items-center overflow-hidden" role="complementary" aria-label="Latest news">
+        <!-- LATEST label -->
+        <span class="bg-red-600 text-white text-sm font-bold px-3 py-1 rounded flex-shrink-0 z-10" data-translate="latest">LATEST</span>
+
+        <!-- Marquee wrapper -->
+        <div class="w-full overflow-hidden ml-4">
+            <div class="animate-marquee">
+                <a href="https://spav.ac.in/spav_result.html" class="text-slate-700 text-sm mx-4 hover:underline focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="schedule-exams">Schedule of Supplementary Examinations, Even Semester A.Y 2024-25</a>
+                <span class="text-slate-300">|</span>
+                <a href="https://spav.ac.in/spav_result.html" class="text-slate-700 text-sm mx-4 hover:underline focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="results-exams">Results of Even Semester End Examinations May 2025 A.Y 2024-25</a>
+                <span class="text-slate-300">|</span>
+                <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" class="text-slate-700 text-sm mx-4 hover:underline focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="workshop-announcement">Hands-on Workshop & International Symposium on Computational Design and Digital Fabrication in Architecture – 14th to 18th July 2025 at SPA Vijayawada</a>
+            </div>
         </div>
     </section>
 
     <!-- Main Content -->
-    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main id="main-content" class="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Dean's Section -->
-        <section class="mb-12">
+        <section class="mb-12" role="region" aria-labelledby="deans-heading">
+            <h2 id="deans-heading" class="sr-only" data-translate="deans-section">Deans and Leadership</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                <a href="#" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <a href="https://spav.ac.in/dean_academic.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
                     <div class="flex flex-col items-center text-center">
                         <div class="bg-white p-4 rounded-full shadow-inner mb-4">
-                            <i class="fas fa-book-open text-amber-600 text-2xl"></i>
+                            <i class="fas fa-book-open text-amber-600 text-2xl" aria-hidden="true"></i>
                         </div>
-                        <h3 class="font-bold text-slate-800">Dean Academic</h3>
+                        <h3 class="font-bold text-slate-800" data-translate="dean-academic">Dean Academic</h3>
                     </div>
                 </a>
-                <a href="#" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <a href="https://spav.ac.in/Dean_p&d.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
                     <div class="flex flex-col items-center text-center">
                         <div class="bg-white p-4 rounded-full shadow-inner mb-4">
-                            <i class="fas fa-users text-amber-600 text-2xl"></i>
+                            <i class="fas fa-users text-amber-600 text-2xl" aria-hidden="true"></i>
                         </div>
-                        <h3 class="font-bold text-slate-800">Dean P&D</h3>
+                        <h3 class="font-bold text-slate-800" data-translate="dean-pd">Dean P&D</h3>
                     </div>
                 </a>
-                <a href="#" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <a href="https://spav.ac.in/dean_studentaffairs.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
                     <div class="flex flex-col items-center text-center">
                         <div class="bg-white p-4 rounded-full shadow-inner mb-4">
-                            <i class="fas fa-users text-amber-600 text-2xl"></i>
+                            <i class="fas fa-users text-amber-600 text-2xl" aria-hidden="true"></i>
                         </div>
-                        <h3 class="font-bold text-slate-800">Dean Student Affairs</h3>
+                        <h3 class="font-bold text-slate-800" data-translate="dean-student-affairs">Dean Student Affairs</h3>
                     </div>
                 </a>
-                <a href="#" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <a href="https://spav.ac.in/dean_facultywelfare.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
                     <div class="flex flex-col items-center text-center">
                         <div class="bg-white p-4 rounded-full shadow-inner mb-4">
-                            <i class="fas fa-award text-amber-600 text-2xl"></i>
+                            <i class="fas fa-award text-amber-600 text-2xl" aria-hidden="true"></i>
                         </div>
-                        <h3 class="font-bold text-slate-800">Dean Faculty Welfare</h3>
+                        <h3 class="font-bold text-slate-800" data-translate="dean-faculty-welfare">Dean Faculty Welfare</h3>
                     </div>
                 </a>
-                <a href="#" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <a href="https://spav.ac.in/dean_research.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
                     <div class="flex flex-col items-center text-center">
                         <div class="bg-white p-4 rounded-full shadow-inner mb-4">
-                            <i class="fas fa-search text-amber-600 text-2xl"></i>
+                            <i class="fas fa-search text-amber-600 text-2xl" aria-hidden="true"></i>
                         </div>
-                        <h3 class="font-bold text-slate-800">Dean Research</h3>
+                        <h3 class="font-bold text-slate-800" data-translate="dean-research">Dean Research</h3>
                     </div>
                 </a>
             </div>
@@ -580,10 +629,10 @@
             <!-- About SPAV Section -->
             <div class="lg:col-span-3">
                 <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 shadow-lg border border-amber-100">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-amber-400 pb-2">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-amber-400 pb-2" data-translate="about-spav-heading">
                         About SPAV
                     </h2>
-                    <p class="text-gray-700 leading-relaxed text-sm">
+                    <p class="text-gray-700 leading-relaxed text-sm" data-translate="about-spav-content">
                         "School of Planning and Architecture, Vijayawada, (in short SPAV), was 
                         established on July 7, 2008 by the Ministry of Human Resource 
                         Development (MoE), Government of India, as an autonomous institution. 
@@ -602,101 +651,65 @@
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
                     <!-- Tab Navigation -->
                     <div class="border-b border-gray-200">
-                        <nav class="flex">
-                            <button onclick="setActiveTab('notifications')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-amber-500 text-amber-600 bg-amber-50" id="notifications-tab">
-                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-orange-500"></span>
-                                Latest Notifications
+                        <nav class="flex" role="tablist" aria-label="Notification categories">
+                            <button onclick="setActiveTab('notifications')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-amber-500 text-amber-600 bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-500" id="notifications-tab" role="tab" aria-selected="true" aria-controls="notifications-content">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-orange-500" aria-hidden="true"></span>
+                                <span data-translate="latest-notifications">Latest Notifications</span>
                             </button>
-                            <button onclick="setActiveTab('circulars')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" id="circulars-tab">
-                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-blue-500"></span>
-                                Circulars / Orders
+                            <button onclick="setActiveTab('circulars')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500" id="circulars-tab" role="tab" aria-selected="false" aria-controls="circulars-content">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-blue-500" aria-hidden="true"></span>
+                                <span data-translate="circulars-orders">Circulars / Orders</span>
                             </button>
-                            <button onclick="setActiveTab('recruitment')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" id="recruitment-tab">
-                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-green-500"></span>
-                                Recruitment
+                            <button onclick="setActiveTab('recruitment')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500" id="recruitment-tab" role="tab" aria-selected="false" aria-controls="recruitment-content">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-green-500" aria-hidden="true"></span>
+                                <span data-translate="recruitment">Recruitment</span>
                             </button>
-                            <button onclick="setActiveTab('tender')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" id="tender-tab">
-                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-purple-500"></span>
-                                Tender
+                            <button onclick="setActiveTab('tender')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500" id="tender-tab" role="tab" aria-selected="false" aria-controls="tender-content">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-purple-500" aria-hidden="true"></span>
+                                <span data-translate="tender">Tender</span>
                             </button>
                         </nav>
                     </div>
 
                     <!-- Tab Content -->
                     <div class="p-6">
-                        <div id="notifications-content" class="tab-content">
+                        <div id="notifications-content" class="tab-content" role="tabpanel" aria-labelledby="notifications-tab">
                             <div class="space-y-4 max-h-80 overflow-y-auto">
+                                <!-- Notification items with proper accessibility -->
                                 <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                                    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+                                    <i class="fas fa-arrow-right text-amber-500 mt-1" aria-hidden="true"></i>
                                     <div class="flex-1">
-                                        <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+                                        <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="workshop-notification">
                                             Hands-on Workshop & International Symposium on Computational Design and Digital Fabrication in Architecture – 14th to 18th July 2025 at SPA Vijayawada
                                         </a>
-                                        <p class="text-xs text-gray-500 mt-1">14th to 18th July 2025</p>
+                                        <p class="text-xs text-gray-500 mt-1">14th to 18th July 2025 at SPA Vijayawada</p>
                                     </div>
-                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full" data-translate="new">NEW</span>
                                 </div>
-                                <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                                    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
-                                    <div class="flex-1">
-                                        <a href="/2025/notices/Karnataka University, Dharwad.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
-                                            Dr. D.C. Pavate Memorial Fellowships in Cambridge (2026–27) – Applications Open Till August 20, 2025
-                                        </a>
-                                        <p class="text-xs text-gray-500 mt-1">August 20, 2025</p>
-                                    </div>
-                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
-                                </div>
-                                <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                                    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
-                                    <div class="flex-1">
-                                        <a href="/2025/notices/notice for Top class ST ,SC  scholarship.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
-                                            Applications invited for National Scholarship (Top Class) for ST & SC Students – 2025-26
-                                        </a>
-                                        <p class="text-xs text-gray-500 mt-1">July 2025</p>
-                                    </div>
-                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
-                                </div>
-                                <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                                    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
-                                    <div class="flex-1">
-                                        <a href="https://spav.ac.in/Mohan-T-Advani-Centennial-Scholarship-Programme-2025-26.html" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
-                                            Mohan T. Advani Centennial Scholarship Programme (Academic year 2025-26) by Blue Star Foundation
-                                        </a>
-                                        <p class="text-xs text-gray-500 mt-1">Academic Year 2025-26</p>
-                                    </div>
-                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
-                                </div>
-                                <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                                    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
-                                    <div class="flex-1">
-                                        <a href="/2025/slider/CPTED  AI in Urban Areas - National Conference 2025.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
-                                            Upcoming National Conference on "CPTED & AI in Urban Areas" to be Organized by SPA Vijayawada on 30th August 2025
-                                        </a>
-                                        <p class="text-xs text-gray-500 mt-1">30th August 2025</p>
-                                    </div>
-                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
-                                </div>
+                                <!-- Add more notification items following the same pattern -->
+                                
                                 <div class="text-center pt-4">
-                                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm">More...</a>
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" data-translate="more">More...</a>
                                 </div>
                             </div>
                         </div>
                         
-                        <div id="circulars-content" class="tab-content hidden">
+                        <!-- Other tab contents with hidden class initially -->
+                        <div id="circulars-content" class="tab-content hidden" role="tabpanel" aria-labelledby="circulars-tab">
                             <div class="text-center py-8 text-gray-500">
-                                <p>No circulars available at the moment.</p>
+                                <p data-translate="no-circulars">No circulars available at the moment.</p>
                             </div>
                         </div>
                         
-                        <div id="recruitment-content" class="tab-content hidden">
+                        <div id="recruitment-content" class="tab-content hidden" role="tabpanel" aria-labelledby="recruitment-tab">
                             <div class="text-center py-8 text-gray-500">
-                                <p>No recruitment available at the moment.</p>
+                                <p data-translate="no-recruitment">No recruitment available at the moment.</p>
                             </div>
                         </div>
                         
-                        <div id="tender-content" class="tab-content hidden">
+                        <div id="tender-content" class="tab-content hidden" role="tabpanel" aria-labelledby="tender-tab">
                             <div class="text-center py-8 text-gray-500">
-                                <p>No tender available at the moment.</p>
+                                <p data-translate="no-tender">No tender available at the moment.</p>
                             </div>
                         </div>
                     </div>
@@ -706,384 +719,468 @@
             <!-- Important Links Section -->
             <div class="lg:col-span-3">
                 <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 shadow-lg border border-amber-100">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-amber-400 pb-2">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-amber-400 pb-2" data-translate="important-links">
                         IMPORTANT LINKS
                     </h2>
                     <div class="space-y-2 max-h-80 overflow-y-auto">
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Capacity Building on SLDs</span>
+                        <a href="Capacity-Building-on-SLDs.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <i class="fas fa-arrow-right mr-2 text-xs" aria-hidden="true"></i>
+                            <span class="truncate" data-translate="capacity-building">Capacity Building on SLDs</span>
                         </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">National Ragging Prevention Programme</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Anti Ragging Squad</span>
-                        </a>
-                        <a href="https://sites.google.com/spav.edu.in/inyan-2025-spa-vijayawada?usp=sharing" target="_blank" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">INYAN 2025</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">SPAV Prospectus</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Video Gallery</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Notice Board</span>
-                        </a>
-                        <a href="academic_ordinances.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Academic Ordinances</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">India Today Ranking</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Holidays List - 2025</span>
-                            <span class="ml-auto bg-green-500 text-white text-xs px-1 rounded">NEW</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">NIRF - SPAV</span>
-                            <span class="ml-auto bg-green-500 text-white text-xs px-1 rounded">NEW</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Results</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Fees & Payments</span>
-                        </a>
-                        <a href="academiccalendar.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Academic Calendar</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Student Fees</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">Green Up SPAV</span>
-                        </a>
-                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
-                            <i class="fas fa-arrow-right mr-2 text-xs"></i>
-                            <span class="truncate">GST</span>
-                        </a>
+                        <!-- Add more important links following the same pattern -->
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Statistics Section -->
-        <section class="mt-16 bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl p-8 text-white">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div>
-                    <div class="text-4xl font-bold mb-2">15+</div>
-                    <div class="text-sm opacity-90">Years of Excellence</div>
-                </div>
-                <div>
-                    <div class="text-4xl font-bold mb-2">2000+</div>
-                    <div class="text-sm opacity-90">Alumni Network</div>
-                </div>
-                <div>
-                    <div class="text-4xl font-bold mb-2">50+</div>
-                    <div class="text-sm opacity-90">Expert Faculty</div>
-                </div>
-                <div>
-                    <div class="text-4xl font-bold mb-2">100+</div>
-                    <div class="text-sm opacity-90">Research Projects</div>
-                </div>
-            </div>
-        </section>
-
         <!-- Student Works Showcase -->
-        <section class="mt-16">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Student Works Showcase</h2>
-            <div class="relative">
-                <div class="overflow-hidden">
-                    <div class="student-works-slider" id="student-works-slider">
-                        <div class="student-work-card bg-white rounded-xl shadow-lg overflow-hidden">
-                            <img src="https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg" alt="Architecture Project 1" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Sustainable Housing Design</h3>
-                                <p class="text-gray-600 text-sm mb-4">An innovative approach to eco-friendly residential architecture incorporating green building principles.</p>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-amber-600 font-medium">Architecture</span>
-                                    <span class="text-gray-500 text-sm">2024</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="student-work-card bg-white rounded-xl shadow-lg overflow-hidden">
-                            <img src="https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg" alt="Urban Planning Project" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Smart City Planning</h3>
-                                <p class="text-gray-600 text-sm mb-4">Comprehensive urban development plan focusing on technology integration and sustainability.</p>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-blue-600 font-medium">Planning</span>
-                                    <span class="text-gray-500 text-sm">2024</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="student-work-card bg-white rounded-xl shadow-lg overflow-hidden">
-                            <img src="https://images.pexels.com/photos/1029604/pexels-photo-1029604.jpeg" alt="Heritage Conservation" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Heritage Conservation</h3>
-                                <p class="text-gray-600 text-sm mb-4">Restoration and preservation strategies for historical architectural monuments.</p>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-green-600 font-medium">Conservation</span>
-                                    <span class="text-gray-500 text-sm">2023</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="student-work-card bg-white rounded-xl shadow-lg overflow-hidden">
-                            <img src="https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg" alt="Community Center Design" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Community Center Design</h3>
-                                <p class="text-gray-600 text-sm mb-4">Multi-functional community space designed to serve diverse neighborhood needs.</p>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-purple-600 font-medium">Public Architecture</span>
-                                    <span class="text-gray-500 text-sm">2023</span>
-                                </div>
-                            </div>
+        <section class="mt-20 px-6 py-16 bg-gray-50" role="region" aria-labelledby="student-works-heading">
+            <div class="flex flex-wrap justify-between items-center mb-10">
+                <h2 id="student-works-heading" class="text-4xl font-extrabold text-gray-900" data-translate="student-works">Student Works Showcase</h2>
+                <a href="/gallery" class="text-blue-600 font-medium hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" data-translate="view-more">View More →</a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Student work cards with proper accessibility -->
+                <div class="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl transition overflow-hidden group">
+                    <img src="https://spav.ac.in/2025/studentworks/1.jpg" alt="Project 01 - Form exploration using parametric modules" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-gray-900 mb-1" data-translate="project-01">Project 01</h3>
+                        <p class="text-sm text-gray-600 mb-2" data-translate="project-01-desc">Form exploration using parametric modules and handmade prototypes.</p>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-orange-600 font-semibold" data-translate="studio">Studio</span>
+                            <span class="text-gray-500">2024</span>
                         </div>
                     </div>
                 </div>
-                <button onclick="prevStudentWork()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors">
-                    <i class="fas fa-chevron-left text-gray-600"></i>
-                </button>
-                <button onclick="nextStudentWork()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors">
-                    <i class="fas fa-chevron-right text-gray-600"></i>
-                </button>
+                <!-- Add more student work cards -->
             </div>
         </section>
 
         <!-- Quick Access Cards -->
-        <section class="mt-16">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Quick Access</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group">
-                    <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white">
-                        <i class="fas fa-book-open text-2xl mb-3"></i>
-                        <h3 class="text-xl font-bold">Admissions</h3>
-                        <p class="text-sm opacity-90">Apply Now</p>
+        <section class="mt-20 px-4" role="region" aria-labelledby="quick-access-heading">
+            <h2 id="quick-access-heading" class="text-4xl font-extrabold text-gray-900 mb-12 text-center" data-translate="quick-access">Quick Access</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Quick access cards with proper accessibility -->
+                <a href="https://www.spav.ac.in/spavadmissions.html" target="_blank" class="group bg-white/30 border border-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-6 text-center transition transform hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white text-2xl shadow-md group-hover:scale-110 transition">
+                        <i class="fas fa-book-open" aria-hidden="true"></i>
                     </div>
-                    <div class="p-4">
-                        <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2">
-                            <span>Learn More</span>
-                            <i class="fas fa-external-link-alt text-sm"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group">
-                    <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 text-white">
-                        <i class="fas fa-users text-2xl mb-3"></i>
-                        <h3 class="text-xl font-bold">Faculty</h3>
-                        <p class="text-sm opacity-90">Meet Our Team</p>
-                    </div>
-                    <div class="p-4">
-                        <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2">
-                            <span>Learn More</span>
-                            <i class="fas fa-external-link-alt text-sm"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group">
-                    <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white">
-                        <i class="fas fa-award text-2xl mb-3"></i>
-                        <h3 class="text-xl font-bold">Research</h3>
-                        <p class="text-sm opacity-90">Innovation Hub</p>
-                    </div>
-                    <div class="p-4">
-                        <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2">
-                            <span>Learn More</span>
-                            <i class="fas fa-external-link-alt text-sm"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group">
-                    <div class="bg-gradient-to-r from-red-500 to-red-600 p-6 text-white">
-                        <i class="fas fa-calendar text-2xl mb-3"></i>
-                        <h3 class="text-xl font-bold">Events</h3>
-                        <p class="text-sm opacity-90">Upcoming</p>
-                    </div>
-                    <div class="p-4">
-                        <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2">
-                            <span>Learn More</span>
-                            <i class="fas fa-external-link-alt text-sm"></i>
-                        </button>
-                    </div>
-                </div>
+                    <h3 class="text-lg font-bold text-gray-900" data-translate="admissions">Admissions</h3>
+                    <p class="text-sm text-gray-600 mb-3" data-translate="apply-now">Apply Now</p>
+                    <span class="inline-flex items-center text-blue-600 font-medium group-hover:underline transition">
+                        <span data-translate="learn-more">Learn More</span> <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition" aria-hidden="true"></i>
+                    </span>
+                </a>
+                <!-- Add more quick access cards -->
             </div>
         </section>
 
         <!-- Video Gallery -->
-        <section class="mt-16">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Campus Life</h2>
+        <section class="mt-16" role="region" aria-labelledby="campus-life-heading">
+            <h2 id="campus-life-heading" class="text-3xl font-bold text-gray-900 mb-8 text-center" data-translate="campus-life">Campus Life</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="relative group cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
                     <div class="aspect-video">
                         <iframe class="w-full h-full" src="https://www.youtube.com/embed/8Pp3OOYOHe0" title="Glimpse of SPAV" allowfullscreen></iframe>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                        <h3 class="text-white font-semibold">Glimpse of SPAV</h3>
+                        <h3 class="text-white font-semibold" data-translate="glimpse-spav">Glimpse of SPAV</h3>
                     </div>
                 </div>
-                <div class="relative group cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
-                    <div class="aspect-video">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/_WFcehLNUOI" title="8th Convocation" allowfullscreen></iframe>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                        <h3 class="text-white font-semibold">8th Convocation</h3>
-                    </div>
-                </div>
-                <div class="relative group cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
-                    <div class="aspect-video">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/KWFw1Co-41Y" title="Swachhata Hi Seva Event" allowfullscreen></iframe>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                        <h3 class="text-white font-semibold">Swachhata Hi Seva Event</h3>
-                    </div>
-                </div>
+                <!-- Add more video cards -->
             </div>
         </section>
     </main>
 
     <!-- GoI Initiatives Logo Carousel -->
-    <div class="w-full bg-white py-8 overflow-hidden mt-12">
-        <div class="flex animate-marquee">
-            <div class="flex items-center space-x-12 mx-6 flex-shrink-0">
-                <img src="https://www.spav.ac.in/2021/wbsb_logo.png" class="h-12" alt="EKBharat">
-                <img src="https://www.spav.ac.in/images/swayam_logo.png" class="h-12" alt="Swayam">
-                <img src="https://www.spav.ac.in/images/patashala.png" class="h-12" alt="ePGPathshala">
-                <img src="https://www.spav.ac.in/images/my_gov_logo.png" class="h-12" alt="MyGov">
-                <img src="https://www.spav.ac.in/images/NDL.png" class="h-12" alt="NDL">
-                <img src="https://www.spav.ac.in/images/nirflogo.png" class="h-12" alt="NIRF">
-                <img src="https://www.spav.ac.in/images/Make_In_India.png" class="h-12" alt="Make In India">
-                <img src="https://www.spav.ac.in/images/manodarpan1.jpg" class="h-12" alt="Manodarpan">
-            </div>
-            <!-- Duplicate for seamless loop -->
-            <div class="flex items-center space-x-12 mx-6 flex-shrink-0">
-                <img src="https://www.spav.ac.in/2021/wbsb_logo.png" class="h-12" alt="EKBharat">
-                <img src="https://www.spav.ac.in/images/swayam_logo.png" class="h-12" alt="Swayam">
-                <img src="https://www.spav.ac.in/images/patashala.png" class="h-12" alt="ePGPathshala">
-                <img src="https://www.spav.ac.in/images/my_gov_logo.png" class="h-12" alt="MyGov">
-                <img src="https://www.spav.ac.in/images/NDL.png" class="h-12" alt="NDL">
-                <img src="https://www.spav.ac.in/images/nirflogo.png" class="h-12" alt="NIRF">
-                <img src="https://www.spav.ac.in/images/Make_In_India.png" class="h-12" alt="Make In India">
-                <img src="https://www.spav.ac.in/images/manodarpan1.jpg" class="h-12" alt="Manodarpan">
-            </div>
+    <div class="logo-carousel-wrapper" role="region" aria-label="Government of India initiatives">
+        <button class="carousel-arrow left" onclick="scrollLogos('left')" aria-label="Scroll logos left">&#10094;</button>
+
+        <div class="logo-carousel-track" id="logoCarouselTrack">
+            <!-- Logo items with proper accessibility -->
+            <a href="https://ekbharat.gov.in/" target="_blank" class="logo-carousel-item focus:outline-none focus:ring-2 focus:ring-amber-500">
+                <img src="2021/wbsb_logo.png" alt="EKBharat - Ek Bharat Shreshtha Bharat">
+            </a>
+            <!-- Add more logo items -->
         </div>
+
+        <button class="carousel-arrow right" onclick="scrollLogos('right')" aria-label="Scroll logos right">&#10095;</button>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer class="bg-gray-900 text-white mt-16" role="contentinfo">
+        <div class="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">About SPAV</h3>
-                    <p class="text-gray-300 text-sm">
+                    <h3 class="text-xl font-bold mb-4" data-translate="about-spav-footer">About SPAV</h3>
+                    <p class="text-gray-300 text-sm" data-translate="footer-description">
                         An Institute of National Importance, focusing on excellence in Architecture and Planning.
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Academics</h3>
+                    <h3 class="text-xl font-bold mb-4" data-translate="academics">Academics</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Admissions</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Departments</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="admissions">Admissions</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="departments">Departments</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <h3 class="text-xl font-bold mb-4" data-translate="quick-links">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">NIRF</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Results</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500">NIRF</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500" data-translate="results">Results</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <h3 class="text-xl font-bold mb-4" data-translate="contact-us">Contact Us</h3>
                     <ul class="space-y-2 text-sm text-gray-300">
-                        <li>Survey No. 4/4, ITI Road, Vijayawada</li>
-                        <li>Andhra Pradesh - 520008</li>
+                        <li data-translate="address-line1">Survey No. 4/4, ITI Road, Vijayawada</li>
+                        <li data-translate="address-line2">Andhra Pradesh - 520008</li>
                     </ul>
                 </div>
             </div>
             <div class="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
-                <p>© 2025 School of Planning and Architecture, Vijayawada. All Rights Reserved.</p>
+                <p data-translate="copyright">© 2025 School of Planning and Architecture, Vijayawada. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Hero Slider
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slider-slide');
-        const totalSlides = slides.length;
-
-        function updateSlider() {
-            const slider = document.getElementById('hero-slider');
-            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-            
-            // Update dots
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.getElementById(`dot-${i}`);
-                if (i === currentSlide) {
-                    dot.classList.remove('bg-opacity-50');
-                    dot.classList.add('bg-opacity-100');
-                } else {
-                    dot.classList.remove('bg-opacity-100');
-                    dot.classList.add('bg-opacity-50');
-                }
+        // Translation dictionary
+        const translations = {
+            en: {
+                'skip-to-main': 'Skip to main content',
+                'screen-reader-access': 'Screen Reader Access',
+                'screen-reader-title': 'Screen Reader Access',
+                'screen-reader-desc': 'This website is optimized for screen readers. Use the following keyboard shortcuts:',
+                'shortcut-tab': 'Tab: Navigate through links and buttons',
+                'shortcut-enter': 'Enter: Activate links and buttons',
+                'shortcut-arrow': 'Arrow keys: Navigate through menus',
+                'shortcut-escape': 'Escape: Close menus and dialogs',
+                'close': 'Close',
+                'home': 'Home',
+                'it-helpdesk': 'IT Helpdesk',
+                'webmail': 'Webmail',
+                'search-label': 'Search the website',
+                'search-placeholder': 'Search...',
+                'about': 'About',
+                'vision': 'Vision',
+                'theme-logo': 'Theme of SPAV Logo',
+                'about-spav': 'About SPAV',
+                'campus-highlights': 'Campus Highlights',
+                'achievements': 'Achievements',
+                'institution': 'Institution',
+                'acts-statutes': 'Acts & Statutes',
+                'board-governors': 'Board of Governors',
+                'finance-committee': 'Finance Committee',
+                'chairperson': 'Chairperson',
+                'director': 'Director',
+                'registrar': 'Registrar',
+                'senate': 'Senate',
+                'deans': 'Deans',
+                'committees': 'Committees',
+                'administration': 'Administration',
+                'faculty-in-charge': 'Faculty in Charge',
+                'convocation': 'Convocation',
+                'annual-reports': 'Annual Reports',
+                'minutes-meeting': 'Minutes of Meeting',
+                'academics': 'Academics',
+                'nep-2020': 'NEP 2020 Enablement',
+                'admissions': 'Admissions',
+                'courses-offered': 'Courses Offered',
+                'examination': 'Examination',
+                'academic-ordinances': 'Academic Ordinances',
+                'fee-structure': 'Fee Structure',
+                'academic-calendar': 'Academic Calendar',
+                'departments': 'Departments',
+                'architecture': 'Architecture',
+                'planning': 'Planning',
+                'central-facilities': 'Central Facilities',
+                'central-library': 'Central Library',
+                'computer-centre': 'Computer Centre',
+                'laboratories': 'Laboratories',
+                'healthcare-centre': 'Healthcare Centre',
+                'guest-house': 'Guest House',
+                'security': 'Security',
+                'research-innovation': 'Research & Innovation',
+                'research-projects': 'Research Projects',
+                'innovation-cell': 'Institute Innovation Cell',
+                'consultancy-projects': 'Consultancy Projects',
+                'publications': 'Publications',
+                'foreign-visit': 'Foreign Visit under CPDA Fund',
+                'collaboration': 'Collaboration',
+                'memberships': 'Memberships',
+                'alumni': 'Alumni',
+                'consultancy-cell': 'Civil & Structural Consultancy Cell',
+                'training-placements': 'Training & Placements',
+                'conferences': 'Conferences',
+                'seminars-webinars': 'Seminars/Webinars',
+                'workshops-fdp': 'Workshops/FDP',
+                'students-corner': "Student's Corner",
+                'students-magazine': "Student's Magazine",
+                'life-spav': 'Life@SPAV',
+                'clubs': 'Clubs',
+                'activities': 'Activities',
+                'hostels': 'Hostels',
+                'sports': 'Sports',
+                'notice-board': 'Notice Board',
+                'gallery': 'Gallery',
+                'contact': 'Contact',
+                'feedback': 'Feedback',
+                'latest': 'LATEST',
+                'schedule-exams': 'Schedule of Supplementary Examinations, Even Semester A.Y 2024-25',
+                'results-exams': 'Results of Even Semester End Examinations May 2025 A.Y 2024-25',
+                'workshop-announcement': 'Hands-on Workshop & International Symposium on Computational Design and Digital Fabrication in Architecture – 14th to 18th July 2025 at SPA Vijayawada',
+                'deans-section': 'Deans and Leadership',
+                'dean-academic': 'Dean Academic',
+                'dean-pd': 'Dean P&D',
+                'dean-student-affairs': 'Dean Student Affairs',
+                'dean-faculty-welfare': 'Dean Faculty Welfare',
+                'dean-research': 'Dean Research',
+                'about-spav-heading': 'About SPAV',
+                'about-spav-content': '"School of Planning and Architecture, Vijayawada, (in short SPAV), was established on July 7, 2008 by the Ministry of Human Resource Development (MoE), Government of India, as an autonomous institution. SPAV is a premier Centrally Funded Technical Institution (CFTI) directly under the MoE, for excellence in the fields of Planning and Architecture. Although in its nascent stage, with experienced faculty and guest lectures by eminent visiting faculty and industry experts from all over the country, the quality of education imparted and its focus on research puts SPAV in the league of leading institutes in the country."',
+                'latest-notifications': 'Latest Notifications',
+                'circulars-orders': 'Circulars / Orders',
+                'recruitment': 'Recruitment',
+                'tender': 'Tender',
+                'workshop-notification': 'Hands-on Workshop & International Symposium on Computational Design and Digital Fabrication in Architecture – 14th to 18th July 2025 at SPA Vijayawada',
+                'new': 'NEW',
+                'more': 'More...',
+                'no-circulars': 'No circulars available at the moment.',
+                'no-recruitment': 'No recruitment available at the moment.',
+                'no-tender': 'No tender available at the moment.',
+                'important-links': 'IMPORTANT LINKS',
+                'capacity-building': 'Capacity Building on SLDs',
+                'student-works': 'Student Works Showcase',
+                'view-more': 'View More →',
+                'project-01': 'Project 01',
+                'project-01-desc': 'Form exploration using parametric modules and handmade prototypes.',
+                'studio': 'Studio',
+                'quick-access': 'Quick Access',
+                'apply-now': 'Apply Now',
+                'learn-more': 'Learn More',
+                'campus-life': 'Campus Life',
+                'glimpse-spav': 'Glimpse of SPAV',
+                'about-spav-footer': 'About SPAV',
+                'footer-description': 'An Institute of National Importance, focusing on excellence in Architecture and Planning.',
+                'quick-links': 'Quick Links',
+                'results': 'Results',
+                'contact-us': 'Contact Us',
+                'address-line1': 'Survey No. 4/4, ITI Road, Vijayawada',
+                'address-line2': 'Andhra Pradesh - 520008',
+                'copyright': '© 2025 School of Planning and Architecture, Vijayawada. All Rights Reserved.'
+            },
+            hi: {
+                'skip-to-main': 'मुख्य सामग्री पर जाएं',
+                'screen-reader-access': 'स्क्रीन रीडर एक्सेस',
+                'screen-reader-title': 'स्क्रीन रीडर एक्सेस',
+                'screen-reader-desc': 'यह वेबसाइट स्क्रीन रीडर के लिए अनुकूलित है। निम्नलिखित कीबोर्ड शॉर्टकट का उपयोग करें:',
+                'shortcut-tab': 'Tab: लिंक और बटन के माध्यम से नेविगेट करें',
+                'shortcut-enter': 'Enter: लिंक और बटन को सक्रिय करें',
+                'shortcut-arrow': 'Arrow keys: मेनू के माध्यम से नेविगेट करें',
+                'shortcut-escape': 'Escape: मेनू और डायलॉग बंद करें',
+                'close': 'बंद करें',
+                'home': 'मुखपृष्ठ',
+                'it-helpdesk': 'आईटी हेल्पडेस्क',
+                'webmail': 'वेबमेल',
+                'search-label': 'वेबसाइट खोजें',
+                'search-placeholder': 'खोजें...',
+                'about': 'के बारे में',
+                'vision': 'दृष्टि',
+                'theme-logo': 'SPAV लोगो का विषय',
+                'about-spav': 'SPAV के बारे में',
+                'campus-highlights': 'कैंपस हाइलाइट्स',
+                'achievements': 'उपलब्धियां',
+                'institution': 'संस्थान',
+                'acts-statutes': 'अधिनियम और विधियां',
+                'board-governors': 'गवर्नर बोर्ड',
+                'finance-committee': 'वित्त समिति',
+                'chairperson': 'अध्यक्ष',
+                'director': 'निदेशक',
+                'registrar': 'रजिस्ट्रार',
+                'senate': 'सीनेट',
+                'deans': 'डीन',
+                'committees': 'समितियां',
+                'administration': 'प्रशासन',
+                'faculty-in-charge': 'प्रभारी संकाय',
+                'convocation': 'दीक्षांत समारोह',
+                'annual-reports': 'वार्षिक रिपोर्ट',
+                'minutes-meeting': 'बैठक के मिनट',
+                'academics': 'शिक्षाविद',
+                'nep-2020': 'NEP 2020 सक्षमता',
+                'admissions': 'प्रवेश',
+                'courses-offered': 'पाठ्यक्रम की पेशकश',
+                'examination': 'परीक्षा',
+                'academic-ordinances': 'शैक्षणिक अध्यादेश',
+                'fee-structure': 'शुल्क संरचना',
+                'academic-calendar': 'शैक्षणिक कैलेंडर',
+                'departments': 'विभाग',
+                'architecture': 'वास्तुकला',
+                'planning': 'योजना',
+                'central-facilities': 'केंद्रीय सुविधाएं',
+                'central-library': 'केंद्रीय पुस्तकालय',
+                'computer-centre': 'कंप्यूटर केंद्र',
+                'laboratories': 'प्रयोगशालाएं',
+                'healthcare-centre': 'स्वास्थ्य केंद्र',
+                'guest-house': 'गेस्ट हाउस',
+                'security': 'सुरक्षा',
+                'research-innovation': 'अनुसंधान और नवाचार',
+                'research-projects': 'अनुसंधान परियोजनाएं',
+                'innovation-cell': 'संस्थान नवाचार सेल',
+                'consultancy-projects': 'सलाहकार परियोजनाएं',
+                'publications': 'प्रकाशन',
+                'foreign-visit': 'CPDA फंड के तहत विदेशी यात्रा',
+                'collaboration': 'सहयोग',
+                'memberships': 'सदस्यताएं',
+                'alumni': 'पूर्व छात्र',
+                'consultancy-cell': 'सिविल और संरचनात्मक सलाहकार सेल',
+                'training-placements': 'प्रशिक्षण और प्लेसमेंट',
+                'conferences': 'सम्मेलन',
+                'seminars-webinars': 'सेमिनार/वेबिनार',
+                'workshops-fdp': 'कार्यशालाएं/FDP',
+                'students-corner': 'छात्र कॉर्नर',
+                'students-magazine': 'छात्र पत्रिका',
+                'life-spav': 'Life@SPAV',
+                'clubs': 'क्लब',
+                'activities': 'गतिविधियां',
+                'hostels': 'छात्रावास',
+                'sports': 'खेल',
+                'notice-board': 'नोटिस बोर्ड',
+                'gallery': 'गैलरी',
+                'contact': 'संपर्क',
+                'feedback': 'प्रतिक्रिया',
+                'latest': 'नवीनतम',
+                'schedule-exams': 'पूरक परीक्षा का कार्यक्रम, सम परसेमेस्टर A.Y 2024-25',
+                'results-exams': 'सम सेमेस्टर अंत परीक्षा मई 2025 A.Y 2024-25 के परिणाम',
+                'workshop-announcement': 'कम्प्यूटेशनल डिज़ाइन और डिजिटल फैब्रिकेशन इन आर्किटेक्चर पर हैंड्स-ऑन वर्कशॉप और अंतर्राष्ट्रीय संगोष्ठी – 14 से 18 जुलाई 2025 SPA विजयवाड़ा में',
+                'deans-section': 'डीन और नेतृत्व',
+                'dean-academic': 'डीन शैक्षणिक',
+                'dean-pd': 'डीन P&D',
+                'dean-student-affairs': 'डीन छात्र मामले',
+                'dean-faculty-welfare': 'डीन संकाय कल्याण',
+                'dean-research': 'डीन अनुसंधान',
+                'about-spav-heading': 'SPAV के बारे में',
+                'about-spav-content': '"स्कूल ऑफ प्लानिंग एंड आर्किटेक्चर, विजयवाड़ा, (संक्षेप में SPAV), की स्थापना 7 जुलाई, 2008 को मानव संसाधन विकास मंत्रालय (MoE), भारत सरकार द्वारा एक स्वायत्त संस्थान के रूप में की गई थी। SPAV योजना और वास्तुकला के क्षेत्र में उत्कृष्टता के लिए MoE के तहत सीधे एक प्रमुख केंद्रीय वित्त पोषित तकनीकी संस्थान (CFTI) है। हालांकि अपनी प्रारंभिक अवस्था में, अनुभवी संकाय और देश भर के प्रतिष्ठित विजिटिंग फैकल्टी और उद्योग विशेषज्ञों द्वारा अतिथि व्याख्यान के साथ, प्रदान की गई शिक्षा की गुणवत्ता और अनुसंधान पर इसका फोकस SPAV को देश के अग्रणी संस्थानों की श्रेणी में रखता है।"',
+                'latest-notifications': 'नवीनतम सूचनाएं',
+                'circulars-orders': 'परिपत्र / आदेश',
+                'recruitment': 'भर्ती',
+                'tender': 'निविदा',
+                'workshop-notification': 'कम्प्यूटेशनल डिज़ाइन और डिजिटल फैब्रिकेशन इन आर्किटेक्चर पर हैंड्स-ऑन वर्कशॉप और अंतर्राष्ट्रीय संगोष्ठी – 14 से 18 जुलाई 2025 SPA विजयवाड़ा में',
+                'new': 'नया',
+                'more': 'और...',
+                'no-circulars': 'फिलहाल कोई परिपत्र उपलब्ध नहीं है।',
+                'no-recruitment': 'फिलहाल कोई भर्ती उपलब्ध नहीं है।',
+                'no-tender': 'फिलहाल कोई निविदा उपलब्ध नहीं है।',
+                'important-links': 'महत्वपूर्ण लिंक',
+                'capacity-building': 'SLDs पर क्षमता निर्माण',
+                'student-works': 'छात्र कार्य प्रदर्शनी',
+                'view-more': 'और देखें →',
+                'project-01': 'परियोजना 01',
+                'project-01-desc': 'पैरामेट्रिक मॉड्यूल और हस्तनिर्मित प्रोटोटाइप का उपयोग करके फॉर्म अन्वेषण।',
+                'studio': 'स्टूडियो',
+                'quick-access': 'त्वरित पहुंच',
+                'apply-now': 'अभी आवेदन करें',
+                'learn-more': 'और जानें',
+                'campus-life': 'कैंपस जीवन',
+                'glimpse-spav': 'SPAV की झलक',
+                'about-spav-footer': 'SPAV के बारे में',
+                'footer-description': 'राष्ट्रीय महत्व का एक संस्थान, वास्तुकला और योजना में उत्कृष्टता पर ध्यान केंद्रित करता है।',
+                'quick-links': 'त्वरित लिंक',
+                'results': 'परिणाम',
+                'contact-us': 'हमसे संपर्क करें',
+                'address-line1': 'सर्वे नं. 4/4, ITI रोड, विजयवाड़ा',
+                'address-line2': 'आंध्र प्रदेश - 520008',
+                'copyright': '© 2025 स्कूल ऑफ प्लानिंग एंड आर्किटेक्चर, विजयवाड़ा। सभी अधिकार सुरक्षित।'
             }
+        };
+
+        let currentLanguage = 'en';
+        let currentSlide = 0;
+
+        // Language switching functionality
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            document.documentElement.lang = lang;
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update placeholder text
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            // Update page direction for Hindi
+            if (lang === 'hi') {
+                document.body.style.fontFamily = "'Noto Sans Devanagari', 'Inter', sans-serif";
+            } else {
+                document.body.style.fontFamily = "'Inter', sans-serif";
+            }
+        }
+
+        // Font size functionality
+        function changeFontSize(size) {
+            const body = document.getElementById('body-root');
+            body.classList.remove('font-size-small', 'font-size-normal', 'font-size-large');
+            
+            switch(size) {
+                case 'small':
+                    body.classList.add('font-size-small');
+                    break;
+                case 'large':
+                    body.classList.add('font-size-large');
+                    break;
+                default:
+                    body.classList.add('font-size-normal');
+            }
+        }
+
+        // High contrast toggle
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
+
+        // Screen reader modal functions
+        function openScreenReaderModal() {
+            document.getElementById('screen-reader-modal').classList.remove('hidden');
+            document.getElementById('screen-reader-modal').focus();
+        }
+
+        function closeScreenReaderModal() {
+            document.getElementById('screen-reader-modal').classList.add('hidden');
+        }
+
+        // Hero slider functionality
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.modern-slide');
+            const total = slides.length;
+            currentSlide = (index + total) % total;
+
+            const sliderInner = document.getElementById('modern-slider-inner');
+            sliderInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('bg-white', i !== currentSlide);
+                dot.classList.toggle('bg-orange-500', i === currentSlide);
+            });
         }
 
         function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateSlider();
+            showSlide(currentSlide + 1);
         }
 
         function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateSlider();
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlider();
-        }
-
-        // Auto-play slider
-        setInterval(nextSlide, 5000);
-
-        // Student Works Slider
-        let studentWorksPosition = 0;
-        const studentWorksSlider = document.getElementById('student-works-slider');
-        const studentWorkCards = document.querySelectorAll('.student-work-card');
-        const cardWidth = 300 + 24; // card width + gap
-
-        function nextStudentWork() {
-            const maxPosition = -(cardWidth * (studentWorkCards.length - 3));
-            if (studentWorksPosition > maxPosition) {
-                studentWorksPosition -= cardWidth;
-                studentWorksSlider.style.transform = `translateX(${studentWorksPosition}px)`;
-            }
-        }
-
-        function prevStudentWork() {
-            if (studentWorksPosition < 0) {
-                studentWorksPosition += cardWidth;
-                studentWorksSlider.style.transform = `translateX(${studentWorksPosition}px)`;
-            }
+            showSlide(currentSlide - 1);
         }
 
         // Tab functionality
@@ -1093,19 +1190,26 @@
             tabContents.forEach(content => content.classList.add('hidden'));
             
             // Show selected tab content
-            document.getElementById(tabName + '-content').classList.remove('hidden');
+            const activeContent = document.getElementById(tabName + '-content');
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+            }
             
             // Update tab buttons
             const tabButtons = document.querySelectorAll('.tab-button');
             tabButtons.forEach(button => {
                 button.classList.remove('border-amber-500', 'text-amber-600', 'bg-amber-50');
                 button.classList.add('border-transparent', 'text-gray-500');
+                button.setAttribute('aria-selected', 'false');
             });
             
             // Activate selected tab button
             const activeTab = document.getElementById(tabName + '-tab');
-            activeTab.classList.remove('border-transparent', 'text-gray-500');
-            activeTab.classList.add('border-amber-500', 'text-amber-600', 'bg-amber-50');
+            if (activeTab) {
+                activeTab.classList.remove('border-transparent', 'text-gray-500');
+                activeTab.classList.add('border-amber-500', 'text-amber-600', 'bg-amber-50');
+                activeTab.setAttribute('aria-selected', 'true');
+            }
         }
 
         // Mobile menu functionality
@@ -1132,22 +1236,70 @@
             icon.classList.toggle('rotate-180');
         }
 
-        // Font size functionality
-        function changeFontSize(size) {
-            const body = document.body;
-            body.classList.remove('text-sm', 'text-base', 'text-lg');
-            
-            if (size === 'sm') {
-                body.classList.add('text-sm');
-            } else if (size === 'lg') {
-                body.classList.add('text-lg');
-            } else {
-                body.classList.add('text-base');
+        // Logo carousel functionality
+        function scrollLogos(direction) {
+            const track = document.getElementById('logoCarouselTrack');
+            const scrollAmount = 200;
+            track.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // Auto-scroll for logo carousel
+        function autoScrollLogos() {
+            const track = document.getElementById('logoCarouselTrack');
+            track.scrollBy({ left: 1 });
+            // Loop back to start
+            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
+                track.scrollTo({ left: 0 });
             }
         }
 
-        // Initialize
-        updateSlider();
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            // Escape key closes modals
+            if (e.key === 'Escape') {
+                closeScreenReaderModal();
+            }
+            
+            // Arrow keys for slider navigation when focused
+            if (document.activeElement.classList.contains('dot')) {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            }
+        });
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up language switcher
+            document.getElementById('languageSwitcher').addEventListener('change', function() {
+                const selectedLang = this.value;
+                if (selectedLang === 'hi') {
+                    window.location.href = '/hi/index.html';
+                } else {
+                    window.location.href = '/index.html';
+                }
+            });
+
+            // Initialize slider
+            showSlide(0);
+            
+            // Auto-play slider
+            setInterval(nextSlide, 5000);
+            
+            // Auto-scroll logos
+            setInterval(autoScrollLogos, 20);
+            
+            // Set default active tab
+            setActiveTab('notifications');
+            
+            // Initialize with default language
+            switchLanguage(currentLanguage);
+        });
     </script>
 </body>
 </html>

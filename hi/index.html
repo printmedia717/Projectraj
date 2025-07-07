@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="hi" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>स्कूल ऑफ प्लानिंग एंड आर्किटेक्चर, विजयवाड़ा</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Screen Reader Styles -->
+    <style>
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        .sr-only:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            padding: 0.5rem;
+            margin: 0;
+            overflow: visible;
+            clip: auto;
+            white-space: normal;
+            background: #000;
+            color: #fff;
+            z-index: 9999;
+        }
+        
+        /* Font size classes */
+        .font-size-small { font-size: 0.875rem; }
+        .font-size-normal { font-size: 1rem; }
+        .font-size-large { font-size: 1.125rem; }
+        
+        /* High contrast mode */
+        .high-contrast {
+            filter: contrast(150%);
+        }
+        
+        @keyframes scroll-marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll-marquee 30s linear infinite;
+        }
+        
+        .logo-carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+            border-top: 4px solid #f0a524;
+            border-bottom: 4px solid #000;
+            padding: 20px 0;
+        }
+
+        .logo-carousel-track {
+            display: flex;
+            gap: 40px;
+            overflow-x: scroll;
+            scroll-behavior: smooth;
+            padding: 0 50px;
+        }
+
+        .logo-carousel-item {
+            flex: 0 0 auto;
+            width: 150px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f7f7f7;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.4s ease;
+        }
+
+        .logo-carousel-item:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-carousel-item:hover img {
+            filter: none;
+            opacity: 1;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 28px;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        .carousel-arrow.left {
+            left: 10px;
+        }
+
+        .carousel-arrow.right {
+            right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .logo-carousel-item {
+                width: 100px;
+                height: 60px;
+            }
+
+            .carousel-arrow {
+                font-size: 20px;
+                padding: 8px 10px;
+            }
+        }
+        
+        body { 
+            font-family: 'Noto Sans Devanagari', 'Inter', sans-serif; 
+        }
+        
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .slider-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+        
+        .student-works-slider {
+            display: flex;
+            transition: transform 0.3s ease;
+            gap: 1.5rem;
+        }
+        
+        .student-work-card {
+            min-width: 300px;
+            flex-shrink: 0;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            max-height: 100vh;
+        }
+        
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .submenu.active {
+            max-height: 500px;
+        }
+        
+        .slider-height {
+            height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .slider-height {
+                height: 650px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50" id="body-root">
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-blue-600 text-white p-2 z-50">
+        मुख्य सामग्री पर जाएं
+    </a>
+
+    <!-- Screen Reader Access Modal -->
+    <div id="screen-reader-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" role="dialog" aria-labelledby="screen-reader-title" aria-describedby="screen-reader-desc">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full">
+                <h2 id="screen-reader-title" class="text-xl font-bold mb-4">स्क्रीन रीडर एक्सेस</h2>
+                <p id="screen-reader-desc" class="mb-4">यह वेबसाइट स्क्रीन रीडर के लिए अनुकूलित है। निम्नलिखित कीबोर्ड शॉर्टकट का उपयोग करें:</p>
+                <ul class="list-disc pl-5 mb-4 space-y-1">
+                    <li>Tab: लिंक और बटन के माध्यम से नेविगेट करें</li>
+                    <li>Enter: लिंक और बटन को सक्रिय करें</li>
+                    <li>Arrow keys: मेनू के माध्यम से नेविगेट करें</li>
+                    <li>Escape: मेनू और डायलॉग बंद करें</li>
+                </ul>
+                <button onclick="closeScreenReaderModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">बंद करें</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="bg-slate-800 text-white text-xs">
+        <div class="max-w-[1700px] mx-auto px-4 py-2 flex justify-between items-center overflow-x-auto">
+            <div class="flex items-center space-x-4 flex-shrink-0">
+                <a href="#main-content" class="hover:underline focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    मुख्य सामग्री पर जाएं
+                </a>
+                <button onclick="openScreenReaderModal()" class="hover:underline focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    स्क्रीन रीडर एक्सेस
+                </button>
+                <span class="text-slate-500">|</span>
+                <a href="#" class="flex items-center hover:text-amber-400 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <i class="fas fa-home mr-1.5" aria-hidden="true"></i>
+                    मुखपृष्ठ
+                </a>
+                <a href="#" class="flex items-center hover:text-amber-400 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <i class="fas fa-info-circle mr-1.5" aria-hidden="true"></i>
+                    आईटी हेल्पडेस्क
+                </a>
+                <a href="#" class="flex items-center hover:text-amber-400 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <i class="fas fa-envelope mr-1.5" aria-hidden="true"></i>
+                    वेबमेल
+                </a>
+            </div>
+
+            <div class="flex items-center space-x-4 flex-shrink-0 ml-auto">
+                <!-- Font Size Controls -->
+                <div class="flex items-center space-x-2" role="group" aria-label="फ़ॉन्ट आकार नियंत्रण">
+                    <button onclick="changeFontSize('small')" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="फ़ॉन्ट आकार घटाएं">A-</button>
+                    <button onclick="changeFontSize('normal')" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="सामान्य फ़ॉन्ट आकार">A</button>
+                    <button onclick="changeFontSize('large')" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="फ़ॉन्ट आकार बढ़ाएं">A+</button>
+                </div>
+                
+                <!-- Language Switcher -->
+                <select id="languageSwitcher" class="bg-slate-700 border border-slate-600 rounded-md p-1 text-white focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="भाषा चुनें">
+                    <option value="en">English</option>
+                    <option value="hi" selected>हिन्दी</option>
+                </select>
+
+                <!-- High Contrast Toggle -->
+                <button onclick="toggleHighContrast()" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="उच्च कंट्रास्ट टॉगल करें" title="उच्च कंट्रास्ट टॉगल करें">
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
+                </button>
+
+                <div class="flex items-center space-x-2 ml-2">
+                    <a href="https://www.facebook.com/" target="_blank" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="https://twitter.com/" target="_blank" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank" class="hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Logo and Search -->
+            <div class="flex justify-between items-center py-3">
+                <a href="#" class="flex items-center flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <img src="https://www.spav.ac.in/images/spav_logo.jpg" alt="SPAV लोगो - स्कूल ऑफ प्लानिंग एंड आर्किटेक्चर विजयवाड़ा" class="h-16 w-auto rounded-md">
+                </a>
+                <div class="hidden md:block w-1/3">
+                    <div class="relative">
+                        <label for="search-input" class="sr-only">वेबसाइट खोजें</label>
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" aria-hidden="true"></i>
+                        <input id="search-input" type="search" placeholder="खोजें..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                    </div>
+                </div>
+                <div class="hidden lg:flex items-center space-x-2">
+                    <img src="https://www.spav.ac.in/2024/images/acupcbspav6.png" alt="ACUPCB" class="h-12">
+                    <img src="https://www.spav.ac.in/2025/images/SPAV%20SAMARTH-emp.png" alt="समर्थ कर्मचारी" class="h-12">
+                    <img src="https://www.spav.ac.in/2025/images/SPAV%20SAMARTH-student.png" alt="समर्थ छात्र" class="h-12">
+                </div>
+                
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-md text-slate-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500" aria-label="मोबाइल मेनू टॉगल करें">
+                    <i class="fas fa-bars" id="menu-icon" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="hidden lg:flex items-center bg-amber-500 rounded-t-md" role="navigation" aria-label="मुख्य नेविगेशन">
+                <ul class="flex items-center text-white font-medium text-xs uppercase tracking-wider">
+                    <!-- About -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            के बारे में
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="vision.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">दृष्टि</a></li>
+                            <li role="none"><a href="themeofspavlogo.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">SPAV लोगो का विषय</a></li>
+                            <li role="none"><a href="about.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">SPAV के बारे में</a></li>
+                            <li role="none"><a href="campus1.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">कैंपस हाइलाइट्स</a></li>
+                            <li role="none"><a href="achivements.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">उपलब्धियां</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Institution -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            संस्थान
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="spavact.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">अधिनियम और विधियां</a></li>
+                            <li role="none"><a href="bog.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">गवर्नर बोर्ड</a></li>
+                            <li role="none"><a href="fc.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">वित्त समिति</a></li>
+                            <li role="none"><a href="bwc.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">BWC</a></li>
+                            <li role="none"><a href="chairperson.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">अध्यक्ष</a></li>
+                            <li role="none"><a href="director.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">निदेशक</a></li>
+                            <li role="none"><a href="registrar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">रजिस्ट्रार</a></li>
+                            <li role="none"><a href="senate.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">सीनेट</a></li>
+                            <li role="none"><a href="deans.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">डीन</a></li>
+                            <li role="none"><a href="committees.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">समितियां</a></li>
+                            <li role="none"><a href="administration.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">प्रशासन</a></li>
+                            <li role="none"><a href="fic.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">प्रभारी संकाय</a></li>
+                            <li role="none"><a href="convocation.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">दीक्षांत समारोह</a></li>
+                            <li role="none"><a href="annualreports.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">वार्षिक रिपोर्ट</a></li>
+                            <li role="none"><a href="minutes.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">बैठक के मिनट</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Academics -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            शिक्षाविद
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="/2024/pdf/NEP Enablement at SPAV 2024.pdf" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" target="_blank">NEP 2020 सक्षमता</a></li>
+                            <li role="none"><a href="spavadmissions.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">प्रवेश</a></li>
+                            <li role="none"><a href="courseoffered.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">पाठ्यक्रम की पेशकश</a></li>
+                            <li role="none"><a href="ccmt.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">CCMT 2024</a></li>
+                            <li role="none"><a href="CSAB-JOSAA-2024.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">CSAB/JOSAA-2024</a></li>
+                            <li role="none"><a href="exams.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">परीक्षा</a></li>
+                            <li role="none"><a href="academic_ordinances.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">शैक्षणिक अध्यादेश</a></li>
+                            <li role="none"><a href="feesstructure.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">शुल्क संरचना</a></li>
+                            <li role="none"><a href="academiccalendar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">शैक्षणिक कैलेंडर</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Departments -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            विभाग
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="architecturedepartment.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">वास्तुकला</a></li>
+                            <li role="none"><a href="planningdepartment.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">योजना</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Central Facilities -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            केंद्रीय सुविधाएं
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="library.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">केंद्रीय पुस्तकालय</a></li>
+                            <li role="none"><a href="computer_centre.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">कंप्यूटर केंद्र</a></li>
+                            <li role="none"><a href="laboratory.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">प्रयोगशालाएं</a></li>
+                            <li role="none"><a href="health.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">स्वास्थ्य केंद्र</a></li>
+                            <li role="none"><a href="guest.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">गेस्ट हाउस</a></li>
+                            <li role="none"><a href="security.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">सुरक्षा</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Research & Innovation -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            अनुसंधान और नवाचार
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="https://acupcb.spav.ac.in/" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" target="_blank">A-CUPCB-SPAV</a></li>
+                            <li role="none"><a href="rprojects.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">अनुसंधान परियोजनाएं</a></li>
+                            <li role="none"><a href="iic.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">संस्थान नवाचार सेल</a></li>
+                            <li role="none"><a href="cprojects.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">सलाहकार परियोजनाएं</a></li>
+                            <li role="none"><a href="spav_journal.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">IJPAS</a></li>
+                            <li role="none"><a href="publications.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">प्रकाशन</a></li>
+                            <li role="none"><a href="mous.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">MoU's</a></li>
+                            <li role="none"><a href="Foreign_visit_under_CPDA_Fund.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">CPDA फंड के तहत विदेशी यात्रा</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Collaboration -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            सहयोग
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="https://spav.ac.in/memberships.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" target="_blank">सदस्यताएं</a></li>
+                            <li role="none"><a href="cii.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">CIII</a></li>
+                            <li role="none"><a href="mous.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">MoU's</a></li>
+                            <li role="none"><a href="alumni.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">पूर्व छात्र</a></li>
+                            <li role="none"><a href="nss.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">NSS</a></li>
+                            <li role="none"><a href="Civil&Structural_Consultancy_Cell.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">सिविल और संरचनात्मक सलाहकार सेल</a></li>
+                            <li role="none"><a href="tp.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">प्रशिक्षण और प्लेसमेंट</a></li>
+                            <li role="none"><a href="conferences.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">सम्मेलन</a></li>
+                            <li role="none"><a href="webinar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">सेमिनार/वेबिनार</a></li>
+                            <li role="none"><a href="ws.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">कार्यशालाएं/FDP</a></li>
+                            <li role="none"><a href="uba.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">UBA</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Student's Corner -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            छात्र कॉर्नर
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="https://sites.google.com/spav.edu.in/inyan-2025-spa-vijayawada?usp=sharing" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem" target="_blank">Inyan 2025</a></li>
+                            <li role="none"><a href="students_magazine.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">छात्र पत्रिका</a></li>
+                            <li role="none"><a href="ebsb.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">EBSB</a></li>
+                            <li role="none"><a href="lifespav.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">Life@SPAV</a></li>
+                            <li role="none"><a href="clubs.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">क्लब</a></li>
+                            <li role="none"><a href="studentactivities.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">गतिविधियां</a></li>
+                            <li role="none"><a href="spav_hostel.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">छात्रावास</a></li>
+                            <li role="none"><a href="sports.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">खेल</a></li>
+                            <li role="none"><a href="snotice.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">नोटिस बोर्ड</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Gallery -->
+                    <li>
+                        <a href="gallery.html" class="px-3 py-3 block hover:bg-amber-600 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-300">गैलरी</a>
+                    </li>
+
+                    <!-- Contact -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-amber-300" aria-haspopup="true" aria-expanded="false">
+                            संपर्क
+                            <i class="fas fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64" role="menu">
+                            <li role="none"><a href="contact.html" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">संपर्क</a></li>
+                            <li role="none"><a href="feedback.php" class="px-4 py-2 block hover:bg-slate-100 text-sm focus:outline-none focus:bg-slate-100" role="menuitem">प्रतिक्रिया</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Mobile Menu -->
+        <nav class="mobile-menu lg:hidden bg-white border-t border-slate-200 p-4" id="mobile-menu" role="navigation" aria-label="मोबाइल नेविगेशन">
+            <ul class="space-y-1">
+                <!-- Mobile menu items with Hindi text -->
+                <li>
+                    <button onclick="toggleSubmenu('about-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500" aria-expanded="false">
+                        के बारे में
+                        <i class="fas fa-chevron-down transition-transform" id="about-mobile-icon" aria-hidden="true"></i>
+                    </button>
+                    <ul class="submenu pl-6 mt-1 space-y-1" id="about-mobile">
+                        <li><a href="vision.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500">दृष्टि</a></li>
+                        <li><a href="themeofspavlogo.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500">SPAV लोगो का विषय</a></li>
+                        <li><a href="about.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500">SPAV के बारे में</a></li>
+                        <li><a href="campus1.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500">कैंपस हाइलाइट्स</a></li>
+                        <li><a href="achivements.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500">उपलब्धियां</a></li>
+                    </ul>
+                </li>
+                <!-- Add other mobile menu items following the same pattern -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Slider -->
+    <section class="relative overflow-hidden mx-auto" style="max-width: 1700px; width: 100%; height: 650px;" role="banner" aria-label="विशेष घोषणाएं">
+        <div id="modern-slider-inner" class="flex transition-transform duration-700 ease-in-out w-full h-full">
+            
+            <!-- Slide 1 -->
+            <div class="modern-slide w-full flex-shrink-0 h-full">
+                <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" target="_blank" class="block w-full h-full focus:outline-none focus:ring-4 focus:ring-amber-500">
+                    <img src="https://www.spav.ac.in/2025/slider/workshop-1.png" class="w-full h-full object-cover" alt="कम्प्यूटेशनल डिज़ाइन वर्कशॉप - 14 से 18 जुलाई 2025 SPA विजयवाड़ा में" />
+                </a>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="modern-slide w-full flex-shrink-0 h-full">
+                <a href="/2025/slider/CPTED%20AI%20in%20Urban%20Areas%20-%20National%20Conference%202025.pdf" target="_blank" class="block w-full h-full focus:outline-none focus:ring-4 focus:ring-amber-500">
+                    <img src="https://www.spav.ac.in/2025/slider/cpted.png" class="w-full h-full object-cover" alt="CPTED AI सम्मेलन - शहरी क्षेत्रों में CPTED और AI पर राष्ट्रीय सम्मेलन" />
+                </a>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="modern-slide w-full flex-shrink-0 h-full">
+                <a href="/2025/notices/Official%20flyer%20for%20website.pdf" target="_blank" class="block w-full h-full focus:outline-none focus:ring-4 focus:ring-amber-500">
+                    <img src="https://www.spav.ac.in/2025/slider/VIDYA-LAXMI-SCHEME.png" class="w-full h-full object-cover" alt="विद्यालक्ष्मी शिक्षा योजना - PM-विद्यालक्ष्मी शिक्षा ऋण योजना" />
+                </a>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="modern-slide w-full flex-shrink-0 h-full">
+                <a href="/2025/notices/Karnataka%20University,%20Dharwad.pdf" target="_blank" class="block w-full h-full focus:outline-none focus:ring-4 focus:ring-amber-500">
+                    <img src="https://www.spav.ac.in/2025/slider/banner1.png" class="w-full h-full object-cover" alt="डॉ. डी.सी. पावते मेमोरियल फेलोशिप - 20 अगस्त 2025 तक आवेदन खुले हैं" />
+                </a>
+            </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 hover:bg-opacity-100 p-2 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500" aria-label="पिछली स्लाइड">
+            <i class="fas fa-chevron-left text-gray-800" aria-hidden="true"></i>
+        </button>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 hover:bg-opacity-100 p-2 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500" aria-label="अगली स्लाइड">
+            <i class="fas fa-chevron-right text-gray-800" aria-hidden="true"></i>
+        </button>
+
+        <!-- Dots -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10" role="tablist" aria-label="स्लाइड नेविगेशन">
+            <button onclick="showSlide(0)" class="dot w-3 h-3 rounded-full bg-white transition-all focus:outline-none focus:ring-2 focus:ring-amber-500" role="tab" aria-label="स्लाइड 1 पर जाएं"></button>
+            <button onclick="showSlide(1)" class="dot w-3 h-3 rounded-full bg-white transition-all focus:outline-none focus:ring-2 focus:ring-amber-500" role="tab" aria-label="स्लाइड 2 पर जाएं"></button>
+            <button onclick="showSlide(2)" class="dot w-3 h-3 rounded-full bg-white transition-all focus:outline-none focus:ring-2 focus:ring-amber-500" role="tab" aria-label="स्लाइड 3 पर जाएं"></button>
+            <button onclick="showSlide(3)" class="dot w-3 h-3 rounded-full bg-white transition-all focus:outline-none focus:ring-2 focus:ring-amber-500" role="tab" aria-label="स्लाइड 4 पर जाएं"></button>
+        </div>
+    </section>
+
+    <!-- Latest Notifications Marquee -->
+    <section class="relative bg-white py-3 pl-4 pr-0 shadow-sm flex items-center overflow-hidden" role="complementary" aria-label="नवीनतम समाचार">
+        <!-- LATEST label -->
+        <span class="bg-red-600 text-white text-sm font-bold px-3 py-1 rounded flex-shrink-0 z-10">नवीनतम</span>
+
+        <!-- Marquee wrapper -->
+        <div class="w-full overflow-hidden ml-4">
+            <div class="animate-marquee">
+                <a href="https://spav.ac.in/spav_result.html" class="text-slate-700 text-sm mx-4 hover:underline focus:outline-none focus:ring-2 focus:ring-amber-500">पूरक परीक्षा का कार्यक्रम, सम सेमेस्टर A.Y 2024-25</a>
+                <span class="text-slate-300">|</span>
+                <a href="https://spav.ac.in/spav_result.html" class="text-slate-700 text-sm mx-4 hover:underline focus:outline-none focus:ring-2 focus:ring-amber-500">सम सेमेस्टर अंत परीक्षा मई 2025 A.Y 2024-25 के परिणाम</a>
+                <span class="text-slate-300">|</span>
+                <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" class="text-slate-700 text-sm mx-4 hover:underline focus:outline-none focus:ring-2 focus:ring-amber-500">कम्प्यूटेशनल डिज़ाइन और डिजिटल फैब्रिकेशन इन आर्किटेक्चर पर हैंड्स-ऑन वर्कशॉप और अंतर्राष्ट्रीय संगोष्ठी – 14 से 18 जुलाई 2025 SPA विजयवाड़ा में</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Dean's Section -->
+        <section class="mb-12" role="region" aria-labelledby="deans-heading">
+            <h2 id="deans-heading" class="sr-only">डीन और नेतृत्व</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <a href="https://spav.ac.in/dean_academic.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-white p-4 rounded-full shadow-inner mb-4">
+                            <i class="fas fa-book-open text-amber-600 text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">डीन शैक्षणिक</h3>
+                    </div>
+                </a>
+                <a href="https://spav.ac.in/Dean_p&d.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-white p-4 rounded-full shadow-inner mb-4">
+                            <i class="fas fa-users text-amber-600 text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">डीन P&D</h3>
+                    </div>
+                </a>
+                <a href="https://spav.ac.in/dean_studentaffairs.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-white p-4 rounded-full shadow-inner mb-4">
+                            <i class="fas fa-users text-amber-600 text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">डीन छात्र मामले</h3>
+                    </div>
+                </a>
+                <a href="https://spav.ac.in/dean_facultywelfare.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-white p-4 rounded-full shadow-inner mb-4">
+                            <i class="fas fa-award text-amber-600 text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">डीन संकाय कल्याण</h3>
+                    </div>
+                </a>
+                <a href="https://spav.ac.in/dean_research.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-white p-4 rounded-full shadow-inner mb-4">
+                            <i class="fas fa-search text-amber-600 text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">डीन अनुसंधान</h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+            <!-- About SPAV Section -->
+            <div class="lg:col-span-3">
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 shadow-lg border border-amber-100">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-amber-400 pb-2">
+                        SPAV के बारे में
+                    </h2>
+                    <p class="text-gray-700 leading-relaxed text-sm">
+                        "स्कूल ऑफ प्लानिंग एंड आर्किटेक्चर, विजयवाड़ा, (संक्षेप में SPAV), की स्थापना 7 जुलाई, 2008 को मानव संसाधन विकास मंत्रालय (MoE), भारत सरकार द्वारा एक स्वायत्त संस्थान के रूप में की गई थी। SPAV योजना और वास्तुकला के क्षेत्र में उत्कृष्टता के लिए MoE के तहत सीधे एक प्रमुख केंद्रीय वित्त पोषित तकनीकी संस्थान (CFTI) है। हालांकि अपनी प्रारंभिक अवस्था में, अनुभवी संकाय और देश भर के प्रतिष्ठित विजिटिंग फैकल्टी और उद्योग विशेषज्ञों द्वारा अतिथि व्याख्यान के साथ, प्रदान की गई शिक्षा की गुणवत्ता और अनुसंधान पर इसका फोकस SPAV को देश के अग्रणी संस्थानों की श्रेणी में रखता है।"
+                    </p>
+                </div>
+            </div>
+
+            <!-- Notifications Section -->
+            <div class="lg:col-span-6">
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
+                    <!-- Tab Navigation -->
+                    <div class="border-b border-gray-200">
+                        <nav class="flex" role="tablist" aria-label="सूचना श्रेणियां">
+                            <button onclick="setActiveTab('notifications')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-amber-500 text-amber-600 bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-500" id="notifications-tab" role="tab" aria-selected="true" aria-controls="notifications-content">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-orange-500" aria-hidden="true"></span>
+                                नवीनतम सूचनाएं
+                            </button>
+                            <button onclick="setActiveTab('circulars')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500" id="circulars-tab" role="tab" aria-selected="false" aria-controls="circulars-content">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-blue-500" aria-hidden="true"></span>
+                                परिपत्र / आदेश
+                            </button>
+                            <button onclick="setActiveTab('recruitment')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500" id="recruitment-tab" role="tab" aria-selected="false" aria-controls="recruitment-content">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-green-500" aria-hidden="true"></span>
+                                भर्ती
+                            </button>
+                            <button onclick="setActiveTab('tender')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500" id="tender-tab" role="tab" aria-selected="false" aria-controls="tender-content">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-purple-500" aria-hidden="true"></span>
+                                निविदा
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="p-6">
+                        <div id="notifications-content" class="tab-content" role="tabpanel" aria-labelledby="notifications-tab">
+                            <div class="space-y-4 max-h-80 overflow-y-auto">
+                                <!-- Notification items with Hindi content -->
+                                <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="fas fa-arrow-right text-amber-500 mt-1" aria-hidden="true"></i>
+                                    <div class="flex-1">
+                                        <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                            कम्प्यूटेशनल डिज़ाइन और डिजिटल फैब्रिकेशन इन आर्किटेक्चर पर हैंड्स-ऑन वर्कशॉप और अंतर्राष्ट्रीय संगोष्ठी – 14 से 18 जुलाई 2025 SPA विजयवाड़ा में
+                                        </a>
+                                        <p class="text-xs text-gray-500 mt-1">14 से 18 जुलाई 2025 SPA विजयवाड़ा में</p>
+                                    </div>
+                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">नया</span>
+                                </div>
+                                
+                                <div class="text-center pt-4">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">और...</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Other tab contents with hidden class initially -->
+                        <div id="circulars-content" class="tab-content hidden" role="tabpanel" aria-labelledby="circulars-tab">
+                            <div class="text-center py-8 text-gray-500">
+                                <p>फिलहाल कोई परिपत्र उपलब्ध नहीं है।</p>
+                            </div>
+                        </div>
+                        
+                        <div id="recruitment-content" class="tab-content hidden" role="tabpanel" aria-labelledby="recruitment-tab">
+                            <div class="text-center py-8 text-gray-500">
+                                <p>फिलहाल कोई भर्ती उपलब्ध नहीं है।</p>
+                            </div>
+                        </div>
+                        
+                        <div id="tender-content" class="tab-content hidden" role="tabpanel" aria-labelledby="tender-tab">
+                            <div class="text-center py-8 text-gray-500">
+                                <p>फिलहाल कोई निविदा उपलब्ध नहीं है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Links Section -->
+            <div class="lg:col-span-3">
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 shadow-lg border border-amber-100">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-amber-400 pb-2">
+                        महत्वपूर्ण लिंक
+                    </h2>
+                    <div class="space-y-2 max-h-80 overflow-y-auto">
+                        <a href="Capacity-Building-on-SLDs.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <i class="fas fa-arrow-right mr-2 text-xs" aria-hidden="true"></i>
+                            <span class="truncate">SLDs पर क्षमता निर्माण</span>
+                        </a>
+                        <!-- Add more important links in Hindi -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Works Showcase -->
+        <section class="mt-20 px-6 py-16 bg-gray-50" role="region" aria-labelledby="student-works-heading">
+            <div class="flex flex-wrap justify-between items-center mb-10">
+                <h2 id="student-works-heading" class="text-4xl font-extrabold text-gray-900">छात्र कार्य प्रदर्शनी</h2>
+                <a href="/gallery" class="text-blue-600 font-medium hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">और देखें →</a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Student work cards with Hindi content -->
+                <div class="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl transition overflow-hidden group">
+                    <img src="https://spav.ac.in/2025/studentworks/1.jpg" alt="परियोजना 01 - पैरामेट्रिक मॉड्यूल का उपयोग करके फॉर्म अन्वेषण" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-gray-900 mb-1">परियोजना 01</h3>
+                        <p class="text-sm text-gray-600 mb-2">पैरामेट्रिक मॉड्यूल और हस्तनिर्मित प्रोटोटाइप का उपयोग करके फॉर्म अन्वेषण।</p>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-orange-600 font-semibold">स्टूडियो</span>
+                            <span class="text-gray-500">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more student work cards -->
+            </div>
+        </section>
+
+        <!-- Quick Access Cards -->
+        <section class="mt-20 px-4" role="region" aria-labelledby="quick-access-heading">
+            <h2 id="quick-access-heading" class="text-4xl font-extrabold text-gray-900 mb-12 text-center">त्वरित पहुंच</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Quick access cards with Hindi content -->
+                <a href="https://www.spav.ac.in/spavadmissions.html" target="_blank" class="group bg-white/30 border border-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-6 text-center transition transform hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white text-2xl shadow-md group-hover:scale-110 transition">
+                        <i class="fas fa-book-open" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">प्रवेश</h3>
+                    <p class="text-sm text-gray-600 mb-3">अभी आवेदन करें</p>
+                    <span class="inline-flex items-center text-blue-600 font-medium group-hover:underline transition">
+                        और जानें <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition" aria-hidden="true"></i>
+                    </span>
+                </a>
+                <!-- Add more quick access cards -->
+            </div>
+        </section>
+
+        <!-- Video Gallery -->
+        <section class="mt-16" role="region" aria-labelledby="campus-life-heading">
+            <h2 id="campus-life-heading" class="text-3xl font-bold text-gray-900 mb-8 text-center">कैंपस जीवन</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="relative group cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
+                    <div class="aspect-video">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/8Pp3OOYOHe0" title="SPAV की झलक" allowfullscreen></iframe>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                        <h3 class="text-white font-semibold">SPAV की झलक</h3>
+                    </div>
+                </div>
+                <!-- Add more video cards -->
+            </div>
+        </section>
+    </main>
+
+    <!-- GoI Initiatives Logo Carousel -->
+    <div class="logo-carousel-wrapper" role="region" aria-label="भारत सरकार की पहल">
+        <button class="carousel-arrow left" onclick="scrollLogos('left')" aria-label="लोगो बाएं स्क्रॉल करें">&#10094;</button>
+
+        <div class="logo-carousel-track" id="logoCarouselTrack">
+            <!-- Logo items with proper accessibility -->
+            <a href="https://ekbharat.gov.in/" target="_blank" class="logo-carousel-item focus:outline-none focus:ring-2 focus:ring-amber-500">
+                <img src="../2021/wbsb_logo.png" alt="EKBharat - एक भारत श्रेष्ठ भारत">
+            </a>
+            <!-- Add more logo items -->
+        </div>
+
+        <button class="carousel-arrow right" onclick="scrollLogos('right')" aria-label="लोगो दाएं स्क्रॉल करें">&#10095;</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-16" role="contentinfo">
+        <div class="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">SPAV के बारे में</h3>
+                    <p class="text-gray-300 text-sm">
+                        राष्ट्रीय महत्व का एक संस्थान, वास्तुकला और योजना में उत्कृष्टता पर ध्यान केंद्रित करता है।
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">शिक्षाविद</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500">प्रवेश</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500">विभाग</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">त्वरित लिंक</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500">NIRF</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500">परिणाम</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">हमसे संपर्क करें</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>सर्वे नं. 4/4, ITI रोड, विजयवाड़ा</li>
+                        <li>आंध्र प्रदेश - 520008</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
+                <p>© 2025 स्कूल ऑफ प्लानिंग एंड आर्किटेक्चर, विजयवाड़ा। सभी अधिकार सुरक्षित।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+
+        // Font size functionality
+        function changeFontSize(size) {
+            const body = document.getElementById('body-root');
+            body.classList.remove('font-size-small', 'font-size-normal', 'font-size-large');
+            
+            switch(size) {
+                case 'small':
+                    body.classList.add('font-size-small');
+                    break;
+                case 'large':
+                    body.classList.add('font-size-large');
+                    break;
+                default:
+                    body.classList.add('font-size-normal');
+            }
+        }
+
+        // High contrast toggle
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
+
+        // Screen reader modal functions
+        function openScreenReaderModal() {
+            document.getElementById('screen-reader-modal').classList.remove('hidden');
+            document.getElementById('screen-reader-modal').focus();
+        }
+
+        function closeScreenReaderModal() {
+            document.getElementById('screen-reader-modal').classList.add('hidden');
+        }
+
+        // Hero slider functionality
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.modern-slide');
+            const total = slides.length;
+            currentSlide = (index + total) % total;
+
+            const sliderInner = document.getElementById('modern-slider-inner');
+            sliderInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('bg-white', i !== currentSlide);
+                dot.classList.toggle('bg-orange-500', i === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Tab functionality
+        function setActiveTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.add('hidden'));
+            
+            // Show selected tab content
+            const activeContent = document.getElementById(tabName + '-content');
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+            }
+            
+            // Update tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('border-amber-500', 'text-amber-600', 'bg-amber-50');
+                button.classList.add('border-transparent', 'text-gray-500');
+                button.setAttribute('aria-selected', 'false');
+            });
+            
+            // Activate selected tab button
+            const activeTab = document.getElementById(tabName + '-tab');
+            if (activeTab) {
+                activeTab.classList.remove('border-transparent', 'text-gray-500');
+                activeTab.classList.add('border-amber-500', 'text-amber-600', 'bg-amber-50');
+                activeTab.setAttribute('aria-selected', 'true');
+            }
+        }
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            
+            mobileMenu.classList.toggle('active');
+            
+            if (mobileMenu.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+
+        function toggleSubmenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(submenuId + '-icon');
+            
+            submenu.classList.toggle('active');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Logo carousel functionality
+        function scrollLogos(direction) {
+            const track = document.getElementById('logoCarouselTrack');
+            const scrollAmount = 200;
+            track.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // Auto-scroll for logo carousel
+        function autoScrollLogos() {
+            const track = document.getElementById('logoCarouselTrack');
+            track.scrollBy({ left: 1 });
+            // Loop back to start
+            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
+                track.scrollTo({ left: 0 });
+            }
+        }
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            // Escape key closes modals
+            if (e.key === 'Escape') {
+                closeScreenReaderModal();
+            }
+            
+            // Arrow keys for slider navigation when focused
+            if (document.activeElement.classList.contains('dot')) {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            }
+        });
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up language switcher
+            document.getElementById('languageSwitcher').addEventListener('change', function() {
+                const selectedLang = this.value;
+                if (selectedLang === 'en') {
+                    window.location.href = '/index.html';
+                } else {
+                    window.location.href = '/hi/index.html';
+                }
+            });
+
+            // Initialize slider
+            showSlide(0);
+            
+            // Auto-play slider
+            setInterval(nextSlide, 5000);
+            
+            // Auto-scroll logos
+            setInterval(autoScrollLogos, 20);
+            
+            // Set default active tab
+            setActiveTab('notifications');
+        });
+    </script>
+</body>
+</html>
