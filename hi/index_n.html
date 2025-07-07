@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School of Planning and Architecture, Vijayawada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+	    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- Top Header Section -->
+  
+  <style>
+  @keyframes scroll-marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .animate-marquee {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll-marquee 30s linear infinite;
+  }
+</style>
+
+  
+  
+  
+    
+ <style>
+.logo-carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border-top: 4px solid #f0a524;
+  border-bottom: 4px solid #000;
+  padding: 20px 0;
+}
+
+.logo-carousel-track {
+  display: flex;
+  gap: 40px;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  padding: 0 50px;
+}
+
+.logo-carousel-item {
+  flex: 0 0 auto;
+  width: 150px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f7f7;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.logo-carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.4s ease;
+}
+
+.logo-carousel-item:hover {
+  transform: scale(1.1);
+}
+
+.logo-carousel-item:hover img {
+  filter: none;
+  opacity: 1;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 28px;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 4px;
+}
+
+.carousel-arrow.left {
+  left: 10px;
+}
+
+.carousel-arrow.right {
+  right: 10px;
+}
+
+@media (max-width: 768px) {
+  .logo-carousel-item {
+    width: 100px;
+    height: 60px;
+  }
+
+  .carousel-arrow {
+    font-size: 20px;
+    padding: 8px 10px;
+  }
+}
+</style>
+	
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script>
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      const slides = document.querySelectorAll('.modern-slide');
+      const total = slides.length;
+      currentSlide = (index + total) % total;
+
+      const sliderInner = document.getElementById('modern-slider-inner');
+      sliderInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+      document.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.classList.toggle('bg-white', i !== currentSlide);
+        dot.classList.toggle('bg-orange-500', i === currentSlide);
+      });
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showSlide(0);
+    });
+  </script>
+  <style>
+    .slider-height {
+      height: 400px;
+    }
+
+    @media (min-width: 768px) {
+      .slider-height {
+        height: 650px;
+      }
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+	<style>
+        body { font-family: 'Inter', sans-serif; }
+        
+		
+   
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .slider-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+        
+        .student-works-slider {
+            display: flex;
+            transition: transform 0.3s ease;
+            gap: 1.5rem;
+        }
+        
+        .student-work-card {
+            min-width: 300px;
+            flex-shrink: 0;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            max-height: 100vh;
+        }
+        
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .submenu.active {
+            max-height: 500px;
+        }
+    </style>
+	
+	
+	
+	
+	
+	
+	
+	
+ <script>
+    // Translation dictionary
+    const translations = {
+      en: {
+        skip: "Skip to Main Content",
+        access: "Screen Reader Access",
+        home: "Home",
+        helpdesk: "IT Helpdesk",
+        webmail: "Webmail",
+      },
+      hi: {
+        skip: "मुख्य सामग्री पर जाएँ",
+        access: "स्क्रीन रीडर एक्सेस",
+        home: "मुखपृष्ठ",
+        helpdesk: "आईटी हेल्पडेस्क",
+        webmail: "वेबमेल",
+      }
+    };
+
+    function switchLanguage(lang) {
+      document.querySelectorAll("[data-key]").forEach(el => {
+        const key = el.getAttribute("data-key");
+        el.textContent = translations[lang][key] || key;
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("languageSwitcher").addEventListener("change", function () {
+        switchLanguage(this.value);
+      });
+    });
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  
+</head>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+  
+  <div class="bg-slate-800 text-white text-xs">
+    <div class="max-w-[1550px] mx-auto px-4 py-2 flex justify-between items-center overflow-x-auto">
+      <div class="flex items-center space-x-4 flex-shrink-0">
+        <a href="#main-content" class="hover:underline">
+          <span data-key="skip">Skip to Main Content</span>
+        </a>
+        <a href="#screen-reader-access" class="hover:underline">
+          <span data-key="access">Screen Reader Access</span>
+        </a>
+        <span class="text-slate-500">|</span>
+        <a href="#" class="flex items-center hover:text-amber-400 transition-colors">
+          <i class="fas fa-home mr-1.5"></i>
+          <span data-key="home">Home</span>
+        </a>
+        <a href="#" class="flex items-center hover:text-amber-400 transition-colors">
+          <i class="fas fa-info-circle mr-1.5"></i>
+          <span data-key="helpdesk">IT Helpdesk</span>
+        </a>
+        <a href="#" class="flex items-center hover:text-amber-400 transition-colors">
+          <i class="fas fa-envelope mr-1.5"></i>
+          <span data-key="webmail">Webmail</span>
+        </a>
+      </div>
+
+      <div class="flex items-center space-x-4 flex-shrink-0 ml-auto">
+        <div class="flex items-center space-x-2">
+          <button class="hover:text-amber-400">A-</button>
+          <button class="hover:text-amber-400">A</button>
+          <button class="hover:text-amber-400">A+</button>
+        </div>
+    <select id="languageSwitcher" class="bg-slate-700 border border-slate-600 rounded-md p-1 text-white">
+  <option value="/">English</option>
+  <option value="/hi">हिन्दी</option>
+</select>
+
+<script>
+  document.getElementById("languageSwitcher").addEventListener("change", function () {
+    window.location.href = this.value;
+  });
+</script>
+
+        <div class="flex items-center space-x-2 ml-2">
+          <a href="https://www.facebook.com/" target="_blank" class="hover:text-amber-400" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/" target="_blank" class="hover:text-amber-400" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/" target="_blank" class="hover:text-amber-400" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Logo and Search -->
+            <div class="flex justify-between items-center py-3">
+                <a href="#" class="flex items-center flex-shrink-0">
+                    <img src="https://www.spav.ac.in/images/spav_logo.jpg" alt="SPAV Logo" class="h-16 w-auto rounded-md">
+                </a>
+                <div class="hidden md:block w-1/3">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="search" placeholder="Search..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                    </div>
+                </div>
+                <div class="hidden lg:flex items-center space-x-2">
+                    <img src="https://www.spav.ac.in/2024/images/acupcbspav6.png" alt="ACUPCB" class="h-12">
+                    <img src="https://www.spav.ac.in/2025/images/SPAV%20SAMARTH-emp.png" alt="Samarth Employee" class="h-12">
+                    <img src="https://www.spav.ac.in/2025/images/SPAV%20SAMARTH-student.png" alt="Samarth Student" class="h-12">
+                </div>
+                
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-md text-slate-600 hover:bg-slate-100">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="hidden lg:flex items-center bg-amber-500 rounded-t-md">
+                <ul class="flex items-center text-white font-medium text-xs uppercase tracking-wider">
+                    <!-- About -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
+                            About
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
+                            <li><a href="vision.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Vision</a></li>
+                            <li><a href="themeofspavlogo.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Theme of SPAV Logo</a></li>
+                            <li><a href="about.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">About SPAV</a></li>
+                            <li><a href="campus1.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Campus Highlights</a></li>
+                            <li><a href="achivements.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Achievements</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Institution -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
+                            Institution
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
+                            <li><a href="spavact.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Acts & Statutes</a></li>
+                            <li><a href="bog.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Board of Governors</a></li>
+                            <li><a href="fc.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Finance Committee</a></li>
+                            <li><a href="bwc.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">BWC</a></li>
+                            <li><a href="chairperson.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Chairperson</a></li>
+                            <li><a href="director.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Director</a></li>
+                            <li><a href="registrar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Registrar</a></li>
+                            <li><a href="senate.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Senate</a></li>
+                            <li><a href="deans.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Deans</a></li>
+                            <li><a href="committees.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Committees</a></li>
+                            <li><a href="administration.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Administration</a></li>
+                            <li><a href="fic.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Faculty in Charge</a></li>
+                            <li><a href="convocation.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Convocation</a></li>
+                            <li><a href="annualreports.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Annual Reports</a></li>
+                            <li><a href="minutes.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Minutes of Meeting</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Academics -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
+                            Academics
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
+                            <li><a href="/2024/pdf/NEP Enablement at SPAV 2024.pdf" class="px-4 py-2 block hover:bg-slate-100 text-sm" target="_blank">NEP 2020 Enablement</a></li>
+                            <li><a href="spavadmissions.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Admissions</a></li>
+                            <li><a href="courseoffered.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Courses Offered</a></li>
+                            <li><a href="ccmt.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">CCMT 2024</a></li>
+                            <li><a href="CSAB-JOSAA-2024.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">CSAB/JOSAA-2024</a></li>
+                            <li><a href="exams.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Examination</a></li>
+                            <li><a href="academic_ordinances.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Academic Ordinances</a></li>
+                            <li><a href="feesstructure.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Fee Structure</a></li>
+                            <li><a href="academiccalendar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Academic Calendar</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Departments -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
+                            Departments
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
+                            <li><a href="architecturedepartment.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Architecture</a></li>
+                            <li><a href="planningdepartment.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Planning</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Central Facilities -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
+                            Central Facilities
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
+                            <li><a href="library.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Central Library</a></li>
+                            <li><a href="computer_centre.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Computer Centre</a></li>
+                            <li><a href="laboratory.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Laboratories</a></li>
+                            <li><a href="health.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Healthcare Centre</a></li>
+                            <li><a href="guest.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Guest House</a></li>
+                            <li><a href="security.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Security</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Research & Innovation -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
+                            Research & Innovation
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
+                            <li><a href="https://acupcb.spav.ac.in/" class="px-4 py-2 block hover:bg-slate-100 text-sm" target="_blank">A-CUPCB-SPAV</a></li>
+                            <li><a href="rprojects.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Research Projects</a></li>
+                            <li><a href="iic.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Institute Innovation Cell</a></li>
+                            <li><a href="cprojects.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Consultancy Projects</a></li>
+                            <li><a href="spav_journal.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">IJPAS</a></li>
+                            <li><a href="publications.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Publications</a></li>
+                            <li><a href="mous.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">MoU's</a></li>
+                            <li><a href="Foreign_visit_under_CPDA_Fund.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Foreign Visit under CPDA Fund</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Collaboration -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
+                            Collaboration
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
+                            <li><a href="https://spav.ac.in/memberships.html" class="px-4 py-2 block hover:bg-slate-100 text-sm" target="_blank">Memberships</a></li>
+                            <li><a href="cii.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">CIII</a></li>
+                            <li><a href="mous.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">MoU's</a></li>
+                            <li><a href="alumni.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Alumni</a></li>
+                            <li><a href="nss.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">NSS</a></li>
+                            <li><a href="Civil&Structural_Consultancy_Cell.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Civil & Structural Consultancy Cell</a></li>
+                            <li><a href="tp.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Training & Placements</a></li>
+                            <li><a href="conferences.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Conferences</a></li>
+                            <li><a href="webinar.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Seminars/Webinars</a></li>
+                            <li><a href="ws.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Workshops/FDP</a></li>
+                            <li><a href="uba.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">UBA</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Student's Corner -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
+                            Student's Corner
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
+                            <li><a href="https://sites.google.com/spav.edu.in/inyan-2025-spa-vijayawada?usp=sharing" class="px-4 py-2 block hover:bg-slate-100 text-sm" target="_blank">Inyan 2025</a></li>
+                            <li><a href="students_magazine.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Student's Magazine</a></li>
+                            <li><a href="ebsb.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">EBSB</a></li>
+                            <li><a href="lifespav.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Life@SPAV</a></li>
+                            <li><a href="clubs.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Clubs</a></li>
+                            <li><a href="studentactivities.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Activities</a></li>
+                            <li><a href="spav_hostel.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Hostels</a></li>
+                            <li><a href="sports.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Sports</a></li>
+                            <li><a href="snotice.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Notice Board</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Gallery -->
+                    <li>
+                        <a href="gallery.html" class="px-3 py-3 block hover:bg-amber-600 transition-colors">Gallery</a>
+                    </li>
+
+                    <!-- Contact -->
+                    <li class="dropdown group relative">
+                        <a href="#" class="px-3 py-3 block hover:bg-amber-600 transition-colors flex items-center">
+                            Contact
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <ul class="dropdown-menu absolute left-0 top-full bg-white text-slate-700 shadow-lg rounded-b-md py-1 z-50 normal-case min-w-64">
+                            <li><a href="contact.html" class="px-4 py-2 block hover:bg-slate-100 text-sm">Contact</a></li>
+                            <li><a href="feedback.php" class="px-4 py-2 block hover:bg-slate-100 text-sm">Feedback</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Mobile Menu -->
+        <nav class="mobile-menu lg:hidden bg-white border-t border-slate-200 p-4" id="mobile-menu">
+            <ul class="space-y-1">
+                <!-- About Mobile -->
+                <li>
+                    <button onclick="toggleSubmenu('about-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
+                        About
+                        <i class="fas fa-chevron-down transition-transform" id="about-mobile-icon"></i>
+                    </button>
+                    <ul class="submenu pl-6 mt-1 space-y-1" id="about-mobile">
+                        <li><a href="vision.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Vision</a></li>
+                        <li><a href="themeofspavlogo.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Theme of SPAV Logo</a></li>
+                        <li><a href="about.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">About SPAV</a></li>
+                        <li><a href="campus1.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Campus Highlights</a></li>
+                        <li><a href="achivements.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Achievements</a></li>
+                    </ul>
+                </li>
+
+                <!-- Institution Mobile -->
+                <li>
+                    <button onclick="toggleSubmenu('institution-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
+                        Institution
+                        <i class="fas fa-chevron-down transition-transform" id="institution-mobile-icon"></i>
+                    </button>
+                    <ul class="submenu pl-6 mt-1 space-y-1" id="institution-mobile">
+                        <li><a href="spavact.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Acts & Statutes</a></li>
+                        <li><a href="bog.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Board of Governors</a></li>
+                        <li><a href="fc.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Finance Committee</a></li>
+                        <li><a href="bwc.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">BWC</a></li>
+                        <li><a href="chairperson.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Chairperson</a></li>
+                        <li><a href="director.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Director</a></li>
+                        <li><a href="registrar.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Registrar</a></li>
+                        <li><a href="senate.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Senate</a></li>
+                        <li><a href="deans.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Deans</a></li>
+                        <li><a href="committees.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Committees</a></li>
+                        <li><a href="administration.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Administration</a></li>
+                        <li><a href="fic.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Faculty in Charge</a></li>
+                        <li><a href="convocation.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Convocation</a></li>
+                        <li><a href="annualreports.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Annual Reports</a></li>
+                        <li><a href="minutes.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Minutes of Meeting</a></li>
+                    </ul>
+                </li>
+
+                <!-- Academics Mobile -->
+                <li>
+                    <button onclick="toggleSubmenu('academics-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
+                        Academics
+                        <i class="fas fa-chevron-down transition-transform" id="academics-mobile-icon"></i>
+                    </button>
+                    <ul class="submenu pl-6 mt-1 space-y-1" id="academics-mobile">
+                        <li><a href="/2024/pdf/NEP Enablement at SPAV 2024.pdf" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100" target="_blank">NEP 2020 Enablement</a></li>
+                        <li><a href="spavadmissions.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Admissions</a></li>
+                        <li><a href="courseoffered.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Courses Offered</a></li>
+                        <li><a href="ccmt.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">CCMT 2024</a></li>
+                        <li><a href="CSAB-JOSAA-2024.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">CSAB/JOSAA-2024</a></li>
+                        <li><a href="exams.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Examination</a></li>
+                        <li><a href="academic_ordinances.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Academic Ordinances</a></li>
+                        <li><a href="feesstructure.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Fee Structure</a></li>
+                        <li><a href="academiccalendar.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Academic Calendar</a></li>
+                    </ul>
+                </li>
+
+                <!-- Departments Mobile -->
+                <li>
+                    <button onclick="toggleSubmenu('departments-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
+                        Departments
+                        <i class="fas fa-chevron-down transition-transform" id="departments-mobile-icon"></i>
+                    </button>
+                    <ul class="submenu pl-6 mt-1 space-y-1" id="departments-mobile">
+                        <li><a href="architecturedepartment.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Architecture</a></li>
+                        <li><a href="planningdepartment.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Planning</a></li>
+                    </ul>
+                </li>
+
+                <!-- Central Facilities Mobile -->
+                <li>
+                    <button onclick="toggleSubmenu('facilities-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
+                        Central Facilities
+                        <i class="fas fa-chevron-down transition-transform" id="facilities-mobile-icon"></i>
+                    </button>
+                    <ul class="submenu pl-6 mt-1 space-y-1" id="facilities-mobile">
+                        <li><a href="library.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Central Library</a></li>
+                        <li><a href="computer_centre.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Computer Centre</a></li>
+                        <li><a href="laboratory.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Laboratories</a></li>
+                        <li><a href="health.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Healthcare Centre</a></li>
+                        <li><a href="guest.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Guest House</a></li>
+                        <li><a href="security.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Security</a></li>
+                    </ul>
+                </li>
+
+                <!-- Research & Innovation Mobile -->
+                <li>
+                    <button onclick="toggleSubmenu('research-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
+                        Research & Innovation
+                        <i class="fas fa-chevron-down transition-transform" id="research-mobile-icon"></i>
+                    </button>
+                    <ul class="submenu pl-6 mt-1 space-y-1" id="research-mobile">
+                        <li><a href="https://acupcb.spav.ac.in/" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100" target="_blank">A-CUPCB-SPAV</a></li>
+                        <li><a href="rprojects.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Research Projects</a></li>
+                        <li><a href="iic.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Institute Innovation Cell</a></li>
+                        <li><a href="cprojects.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Consultancy Projects</a></li>
+                        <li><a href="spav_journal.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">IJPAS</a></li>
+                        <li><a href="publications.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Publications</a></li>
+                        <li><a href="mous.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">MoU's</a></li>
+                        <li><a href="Foreign_visit_under_CPDA_Fund.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Foreign Visit under CPDA Fund</a></li>
+                    </ul>
+                </li>
+
+                <!-- Collaboration Mobile -->
+                <li>
+                    <button onclick="toggleSubmenu('collaboration-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
+                        Collaboration
+                        <i class="fas fa-chevron-down transition-transform" id="collaboration-mobile-icon"></i>
+                    </button>
+                    <ul class="submenu pl-6 mt-1 space-y-1" id="collaboration-mobile">
+                        <li><a href="https://spav.ac.in/memberships.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100" target="_blank">Memberships</a></li>
+                        <li><a href="cii.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">CIII</a></li>
+                        <li><a href="mous.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">MoU's</a></li>
+                        <li><a href="alumni.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Alumni</a></li>
+                        <li><a href="nss.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">NSS</a></li>
+                        <li><a href="Civil&Structural_Consultancy_Cell.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Civil & Structural Consultancy Cell</a></li>
+                        <li><a href="tp.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Training & Placements</a></li>
+                        <li><a href="conferences.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Conferences</a></li>
+                        <li><a href="webinar.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Seminars/Webinars</a></li>
+                        <li><a href="ws.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Workshops/FDP</a></li>
+                        <li><a href="uba.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">UBA</a></li>
+                    </ul>
+                </li>
+
+                <!-- Student's Corner Mobile -->
+                <li>
+                    <button onclick="toggleSubmenu('students-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
+                        Student's Corner
+                        <i class="fas fa-chevron-down transition-transform" id="students-mobile-icon"></i>
+                    </button>
+                    <ul class="submenu pl-6 mt-1 space-y-1" id="students-mobile">
+                        <li><a href="https://sites.google.com/spav.edu.in/inyan-2025-spa-vijayawada?usp=sharing" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100" target="_blank">Inyan 2025</a></li>
+                        <li><a href="students_magazine.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Student's Magazine</a></li>
+                        <li><a href="ebsb.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">EBSB</a></li>
+                        <li><a href="lifespav.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Life@SPAV</a></li>
+                        <li><a href="clubs.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Clubs</a></li>
+                        <li><a href="studentactivities.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Activities</a></li>
+                        <li><a href="spav_hostel.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Hostels</a></li>
+                        <li><a href="sports.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Sports</a></li>
+                        <li><a href="snotice.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Notice Board</a></li>
+                    </ul>
+                </li>
+
+                <!-- Gallery Mobile -->
+                <li>
+                    <a href="gallery.html" class="block px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">Gallery</a>
+                </li>
+
+                <!-- Contact Mobile -->
+                <li>
+                    <button onclick="toggleSubmenu('contact-mobile')" class="w-full flex justify-between items-center px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">
+                        Contact
+                        <i class="fas fa-chevron-down transition-transform" id="contact-mobile-icon"></i>
+                    </button>
+                    <ul class="submenu pl-6 mt-1 space-y-1" id="contact-mobile">
+                        <li><a href="contact.html" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Contact</a></li>
+                        <li><a href="feedback.php" class="block px-4 py-2 text-sm rounded-md hover:bg-slate-100">Feedback</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Slider -->
+  <section class="relative overflow-hidden slider-height mx-auto" style="max-width: 1550px; width: 100%;">
+  <div id="modern-slider-inner" class="flex transition-transform duration-700 ease-in-out w-full h-full">
+    
+    <!-- Slide 1 -->
+    <div class="modern-slide w-full flex-shrink-0 h-full">
+      <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" target="_blank">
+        <img src="https://www.spav.ac.in/2025/slider/workshop-1.png" class="w-full h-full object-cover" alt="Computational Design Workshop" />
+      </a>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="modern-slide w-full flex-shrink-0 h-full">
+      <a href="/2025/slider/CPTED%20AI%20in%20Urban%20Areas%20-%20National%20Conference%202025.pdf" target="_blank">
+        <img src="https://www.spav.ac.in/2025/slider/cpted.png" class="w-full h-full object-cover" alt="CPTED AI Conference" />
+      </a>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="modern-slide w-full flex-shrink-0 h-full">
+      <a href="/2025/notices/Official%20flyer%20for%20website.pdf" target="_blank">
+        <img src="https://www.spav.ac.in/2025/slider/VIDYA-LAXMI-SCHEME.png" class="w-full h-full object-cover" alt="Vidyalaxmi Education Scheme" />
+      </a>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="modern-slide w-full flex-shrink-0 h-full">
+      <a href="/2025/notices/Karnataka%20University,%20Dharwad.pdf" target="_blank">
+        <img src="https://www.spav.ac.in/2025/slider/banner1.png" class="w-full h-full object-cover" alt="Dr. D.C. Pavate Memorial Fellowships" />
+      </a>
+    </div>
+  </div>
+
+  <!-- Navigation Arrows -->
+  <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 hover:bg-opacity-100 p-2 rounded-full shadow-md">
+    <i class="fas fa-chevron-left text-gray-800"></i>
+  </button>
+  <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 hover:bg-opacity-100 p-2 rounded-full shadow-md">
+    <i class="fas fa-chevron-right text-gray-800"></i>
+  </button>
+
+  <!-- Dots -->
+  <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+    <button onclick="showSlide(0)" class="dot w-3 h-3 rounded-full bg-white transition-all"></button>
+    <button onclick="showSlide(1)" class="dot w-3 h-3 rounded-full bg-white transition-all"></button>
+    <button onclick="showSlide(2)" class="dot w-3 h-3 rounded-full bg-white transition-all"></button>
+    <button onclick="showSlide(3)" class="dot w-3 h-3 rounded-full bg-white transition-all"></button>
+  </div>
+</section>
+
+
+
+    <!-- Latest Notifications Marquee -->
+<section class="relative bg-white py-3 pl-4 pr-0 shadow-sm flex items-center overflow-hidden">
+  <!-- LATEST label -->
+  <span class="bg-red-600 text-white text-sm font-bold px-3 py-1 rounded flex-shrink-0 z-10">LATEST</span>
+
+  <!-- Marquee wrapper -->
+  <div class="w-full overflow-hidden ml-4">
+    <div class="animate-marquee">
+      <a href="https://spav.ac.in/spav_result.html" class="text-slate-700 text-sm mx-4 hover:underline">Schedule of Supplementary Examinations, Even Semester A.Y 2024-25</a>
+      <span class="text-slate-300">|</span>
+      <a href="https://spav.ac.in/spav_result.html" class="text-slate-700 text-sm mx-4 hover:underline">Results of Even Semester End Examinations May 2025 A.Y 2024-25</a>
+      <span class="text-slate-300">|</span>
+      <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" class="text-slate-700 text-sm mx-4 hover:underline">Hands-on Workshop & International Symposium on Computational Design and Digital Fabrication in Architecture – 14th to 18th July 2025 at SPA Vijayawada</a>
+    </div>
+  </div>
+</section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Dean's Section -->
+        <section class="mb-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <a href="https://spav.ac.in/dean_academic.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-white p-4 rounded-full shadow-inner mb-4">
+                            <i class="fas fa-book-open text-amber-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Dean Academic</h3>
+                    </div>
+                </a>
+                <a href="https://spav.ac.in/Dean_p&d.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-white p-4 rounded-full shadow-inner mb-4">
+                            <i class="fas fa-users text-amber-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Dean P&D</h3>
+                    </div>
+                </a>
+                <a href="https://spav.ac.in/dean_studentaffairs.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-white p-4 rounded-full shadow-inner mb-4">
+                            <i class="fas fa-users text-amber-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Dean Student Affairs</h3>
+                    </div>
+                </a>
+                <a href="https://spav.ac.in/dean_facultywelfare.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-white p-4 rounded-full shadow-inner mb-4">
+                            <i class="fas fa-award text-amber-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Dean Faculty Welfare</h3>
+                    </div>
+                </a>
+                <a href="https://spav.ac.in/dean_research.html" class="block p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-white p-4 rounded-full shadow-inner mb-4">
+                            <i class="fas fa-search text-amber-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Dean Research</h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+            <!-- About SPAV Section -->
+            <div class="lg:col-span-3">
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 shadow-lg border border-amber-100">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-amber-400 pb-2">
+                        About SPAV
+                    </h2>
+                    <p class="text-gray-700 leading-relaxed text-sm">
+                        "School of Planning and Architecture, Vijayawada, (in short SPAV), was 
+                        established on July 7, 2008 by the Ministry of Human Resource 
+                        Development (MoE), Government of India, as an autonomous institution. 
+                        SPAV is a premier Centrally Funded Technical Institution (CFTI) directly 
+                        under the MoE, for excellence in the fields of Planning and Architecture. 
+                        Although in its nascent stage, with experienced faculty and guest lectures 
+                        by eminent visiting faculty and industry experts from all over the 
+                        country, the quality of education imparted and its focus on research puts 
+                        SPAV in the league of leading institutes in the country."
+                    </p>
+                </div>
+            </div>
+
+            <!-- Notifications Section -->
+            <div class="lg:col-span-6">
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
+                    <!-- Tab Navigation -->
+                    <div class="border-b border-gray-200">
+                        <nav class="flex">
+                            <button onclick="setActiveTab('notifications')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-amber-500 text-amber-600 bg-amber-50" id="notifications-tab">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-orange-500"></span>
+                                Latest Notifications
+                            </button>
+                            <button onclick="setActiveTab('circulars')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" id="circulars-tab">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-blue-500"></span>
+                                Circulars / Orders
+                            </button>
+                            <button onclick="setActiveTab('recruitment')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" id="recruitment-tab">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-green-500"></span>
+                                Recruitment
+                            </button>
+                            <button onclick="setActiveTab('tender')" class="tab-button flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" id="tender-tab">
+                                <span class="inline-block w-3 h-3 rounded-full mr-2 bg-purple-500"></span>
+                                Tender
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="p-6">
+                        <div id="notifications-content" class="tab-content">
+                            <div class="space-y-4 max-h-80 overflow-y-auto">
+							
+							
+                             
+							 
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            Hands-on Workshop & International Symposium on Computational Design and Digital Fabrication in Architecture – 14th to 18th July 2025 at SPA Vijayawada
+        </a>
+        <p class="text-xs text-gray-500 mt-1">14th to 18th July 2025 at SPA Vijayawada</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="/2025/notices/Karnataka University, Dharwad.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            Dr. D.C. Pavate Memorial Fellowships in Cambridge (2026–27) – Applications Open Till August 20, 2025
+        </a>
+        <p class="text-xs text-gray-500 mt-1">Dr. D.C. Pavate Memorial Fellowships in Cambridge (2026</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="/2025/notices/notice for Top class ST ,SC  scholarship.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            Applications Invited for National Scholarship (Top Class) for ST & SC Students – 2025-26
+        </a>
+        <p class="text-xs text-gray-500 mt-1">2025-26</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="https://spav.ac.in/Mohan-T-Advani-Centennial-Scholarship-Programme-2025-26.html" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            Mohan T. Advani Centennial Scholarship Programme (Academic year 2025-26) by Blue Star Foundation – Architecture
+        </a>
+        <p class="text-xs text-gray-500 mt-1">Mohan T. Advani Centennial Scholarship Programme (Academic year 2025-26) by Blue Star Foundation</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="/2025/slider/CPTED  AI in Urban Areas - National Conference 2025.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            Upcoming National Conference on "CPTED & AI in Urban Areas" to be Organized by SPA Vijayawada on 30th August 2025
+        </a>
+        <p class="text-xs text-gray-500 mt-1">Upcoming National Conference on "CPTED & AI in Urban Areas" to be Organized by SPA Vijayawada on 30th August 2025</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="/2025/notices/D.O Letter (2).pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            Availability of Dr. B.R. Ambedkar's Writings and Speeches for Students & Faculty – 75 Years of Constitution Celebration
+        </a>
+        <p class="text-xs text-gray-500 mt-1">2025</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="https://www.spav.ac.in/2025/admissions/Modified%20Fee%20Structure%20(including%20Hostel%20fees)%20for%20PhD%20students%20to%20be%20admitted%20in%20the%20A.Y.%202025-26.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            Fee Structure (including Hostel fees) for PhD students to be admitted in the A.Y. 2025-26.
+        </a>
+        <p class="text-xs text-gray-500 mt-1">Fee Structure (including Hostel fees) for PhD students to be admitted in the A.Y. 2025-26.</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="/2025/notices/Notice for supplementary Examinations Even Semester, July 2025.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            Notice for Supplementary  Examinations, July 2025 & Registration Link  for all UG, PG & PhD Programmes
+        </a>
+        <p class="text-xs text-gray-500 mt-1">Notice for Supplementary  Examinations, July 2025 & Registration Link  for all UG, PG & PhD Programmes</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="/2025/notices/Course Registration for Summer Classes  June  2025, A.Y 2024-25.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            Notice - Course Registration for Summer Classes, A.Y 204-25 - June/July 2025
+        </a>
+        <p class="text-xs text-gray-500 mt-1">Notice - Course Registration for Summer Classes, A.Y 204-25 - June/July 2025</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="/2025/notices/Official flyer for website.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            Implementation of PM-Vidyalaxmi Education Loan Scheme at SPA Vijayawada for AY 2025–26
+        </a>
+        <p class="text-xs text-gray-500 mt-1">Implementation of PM-Vidyalaxmi Education Loan Scheme at SPA Vijayawada for AY 2025</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+<div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+        <a href="/2025/notices/NOS Advertisement 2025-26 MOTA.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+            National Overseas Scholarship Scheme (NOS) for ST candidates
+for the Selection year 2025-26.
+        </a>
+        <p class="text-xs text-gray-500 mt-1">National Overseas Scholarship Scheme (NOS) for ST candidates
+for the Selection year 2025-26.</p>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+</div>
+
+
+                                <div class="text-center pt-4">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm">More...</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+<div id="circulars-content" class="tab-content hidden space-y-3 max-h-[470px] overflow-y-auto pr-2">
+    <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+        <div class="flex-1">
+            <a href="/2025/orders/Office Order - Extension of Contract Faculty.pdf" target="_blank"
+               class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+                Office Order - Extension of Contract Faculty.
+            </a>
+        </div>
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+    </div>
+
+    <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+        <div class="flex-1">
+            <a href="/2025/orders/APARs for the year 2019-20 to 2023-24 i.r.o. of some faculty.pdf" target="_blank"
+               class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+                APARs for the year 2019-20 to 2023-24 i.r.o. of some faculty.
+            </a>
+        </div>
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+    </div>
+
+    <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+        <div class="flex-1">
+            <a href="/2025/orders/Office Order i.r.o. Dr. Ch Anil Kumar.pdf" target="_blank"
+               class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+                Office order - Appointment of Dr. Ch Anil Kumar as Institution Nodal Officer for PM-Vidyalaxmi Portal
+            </a>
+        </div>
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+    </div>
+
+    <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+        <div class="flex-1">
+            <a href="/2025/orders/Office order regarding transfers.pdf" target="_blank"
+               class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+                Office order regarding transferring staff internally
+            </a>
+        </div>
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+    </div>
+
+    <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+        <div class="flex-1">
+            <a href="/2025/orders/Office Order i.r.o Dr. G Shanmuga Priya.pdf" target="_blank"
+               class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+                Office Order - Relieving of Dr. G Shanmuga Priya from Additional Duties of Deputy Dean Academic – Office Order dated 13.05.2025.
+            </a>
+        </div>
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+    </div>
+
+    <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+        <div class="flex-1">
+            <a href="/2024/orders/Office Order - additional responsibilities.pdf" target="_blank"
+               class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+                Office Order - Assigning additional responsibilities to Dr. Ch Anil Kumar as APIO (Academic) and Dr. Prashanti Rao as Nodal Officer – Council of Architecture in the Department of Architecture.
+            </a>
+        </div>
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+    </div>
+
+    <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+        <div class="flex-1">
+            <a href="/2024/orders/Officer Order_64_19.12.2024_Legal Cell.pdf" target="_blank"
+               class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+                Office Order - Legal Cell of SPAV
+            </a>
+        </div>
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+    </div>
+</div>
+
+                        
+                       
+					   
+					   <div id="recruitment-content" class="tab-content hidden space-y-3 max-h-[470px] overflow-y-auto pr-2">
+
+  <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+      <a href="/2025/recruit/Results of Online Interview Conducted for Post of Research Assistant- TRP Project.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+        Results of Online Interview Conducted for Post of Research Assistant- TRP Project.
+      </a>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+  </div>
+
+  <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+      <a href="/2025/recruit/Eligible and Ineligible List of Candidates for the Position of Research Assistant in Tiruchirappalli Regional Planning Project.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+        Eligible and Ineligible List of Candidates for the Position of Research Assistant in Tiruchirappalli Regional Planning Project.
+      </a>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+  </div>
+
+  <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+      <a href="/2025/recruit/Advertisment for the Post of Research Assistant in Tiruchirappalli Regional Planning Project on Purely Contract Basis on 21.05.2025.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+        Advertisment for the Post of Research Assistant in Tiruchirappalli Regional Planning Project on Purely Contract Basis.
+      </a>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+  </div>
+
+  <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+      <a href="/2025/recruit/Results of Internship for online and offline interview conducted on 06.05.2025 for TRP Project.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+        Results of Internship for online and offline interview conducted on 06.05.2025 for TRP Project.
+      </a>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+  </div>
+
+  <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+      <a href="/2025/recruit/Advertisement for Project Assistants-SPAV.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+        Advertisement for Project Assistants – “Reorganisation of Central Reception Office, Tirumala (Short Term Urban Design Plan)”.
+      </a>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+  </div>
+
+  <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+      <a href="/2025/recruit/Research Interns - Eligible list of candidates for TRP project.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+        Eligible and Ineligible candidate's list for the post of Research Interns on purely contract basis for Tiruchirappalli Regional Planning Project.
+      </a>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+  </div>
+
+  <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+      <a href="/2025/recruit/Results of Online Interview Conducted on 03.04.2025 for the Post of Research Assistant, TRP Project.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+        Results of Online Interview for the Post of Research Assistant – Tiruchirappalli Regional Plan Project (TRP) – Reg.
+      </a>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+  </div>
+
+  <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+      <a href="/2025/recruit/TRP Project_Internship on Contract Basis Advertisement.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+        Advertisement – Research Interns on purely contract basis for Tiruchirappalli Regional Planning Project.
+      </a>
+    </div>
+    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+  </div>
+
+  <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+      <a href="/2025/recruit/Eligibile Candidates for the post of Research Associate under the TRP project.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+        Eligible Candidates for the post of Research Associate under the TRP project.
+      </a>
+    </div>
+  </div>
+
+  <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+    <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+    <div class="flex-1">
+      <a href="/2025/recruit/Marks of Non Teaching Recruitment - Phase II.pdf" target="_blank" class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+        Marks of Non Teaching Recruitment – Phase II.
+      </a>
+    </div>
+  </div>
+
+</div>
+
+                        
+                        
+<div id="tender-content" class="tab-content hidden space-y-3 max-h-[470px] overflow-y-auto pr-2">
+    <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+        <div class="flex-1">
+            <a href="https://spav.ac.in/tender.html" target="_blank"
+               class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+                GeM - Hostel Mess Service Bid
+            </a>
+        </div>
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+    </div>
+
+    <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-arrow-right text-amber-500 mt-1"></i>
+        <div class="flex-1">
+            <a href="https://spav.ac.in/tender.html" target="_blank"
+               class="text-sm font-medium text-gray-900 hover:text-amber-600 cursor-pointer">
+                NIQ for Student Hostel Maintenance works
+            </a>
+        </div>
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Links Section -->
+            <div class="lg:col-span-3">
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 shadow-lg border border-amber-100">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-amber-400 pb-2">
+                        IMPORTANT LINKS
+                    </h2>
+                    <div class="space-y-2 max-h-80 overflow-y-auto">
+                       <a href="Capacity-Building-on-SLDs.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Capacity Building on SLDs</span>
+</a>
+
+<a href="https://spav.ac.in/NATIONAL-RAGGING-PREVENTION-PROGRAMME.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all" target="_blank">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">National Ragging Prevention Programme</span>
+</a>
+
+<a href="AntiRaggingSquadandCommittee.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Anti Ragging Squad</span>
+</a>
+
+<a href="https://sites.google.com/spav.edu.in/inyan-2025-spa-vijayawada?usp=sharing" target="_blank" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">INYAN 2025</span>
+</a>
+
+<a href="https://spav.ac.in/about.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all" target="_blank">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">SPAV Prospectus</span>
+</a>
+
+<a href="video.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Video Gallery</span>
+</a>
+
+<a href="noticeboard.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Notice Board</span>
+</a>
+
+<a href="academic_ordinances.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Academic Ordinances</span>
+</a>
+
+<a href="itr.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">India Today Ranking</span>
+</a>
+
+<a href="/2024/orders/Holidays List - 2025.pdf" target="_blank" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Holidays List - 2025</span>
+  <span class="ml-auto bg-green-500 text-white text-xs px-1 rounded">NEW</span>
+</a>
+
+<a href="nirf.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">NIRF - SPAV</span>
+  <span class="ml-auto bg-green-500 text-white text-xs px-1 rounded">NEW</span>
+</a>
+
+<a href="spav_result.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Results</span>
+</a>
+
+<a href="fee_payment.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Fees & Payments</span>
+</a>
+
+<a href="academiccalendar.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Academic Calendar</span>
+</a>
+
+<a href="feesstructure.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Student Fees</span>
+</a>
+
+<a href="green.html" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">Green Up SPAV</span>
+</a>
+
+<a href="pdf/gst.pdf" target="_blank" class="flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-white hover:bg-opacity-50 p-2 rounded transition-all">
+  <i class="fas fa-arrow-right mr-2 text-xs"></i>
+  <span class="truncate">GST</span>
+</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Section 
+        <section class="mt-16 bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl p-8 text-white">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold mb-2">15+</div>
+                    <div class="text-sm opacity-90">Years of Excellence</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">2000+</div>
+                    <div class="text-sm opacity-90">Alumni Network</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">50+</div>
+                    <div class="text-sm opacity-90">Expert Faculty</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">100+</div>
+                    <div class="text-sm opacity-90">Research Projects</div>
+                </div>
+            </div>
+        </section>
+-->
+        <!-- Student Works Showcase -->
+<section class="mt-20 px-6 py-16 bg-[url('2025/images/student-work-bg.png')] bg-cover bg-center bg-no-repeat bg-gray-50 bg-blend-overlay">
+  <div class="flex flex-wrap justify-between items-center mb-10">
+    <h2 class="text-4xl font-extrabold text-gray-900">Student Works Showcase</h2>
+    <a href="/gallery" class="text-blue-600 font-medium hover:underline text-sm">View More →</a>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Card Template -->
+    <div class="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl transition overflow-hidden group">
+      <img src="https://spav.ac.in/2025/studentworks/1.jpg" alt="Project 01" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+      <div class="p-4">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Project 01</h3>
+        <p class="text-sm text-gray-600 mb-2">Form exploration using parametric modules and handmade prototypes.</p>
+        <div class="flex justify-between text-sm">
+          <span class="text-orange-600 font-semibold">Studio</span>
+          <span class="text-gray-500">2024</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat this card with different content (just duplicating with new headings below) -->
+    <div class="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl transition overflow-hidden group">
+      <img src="https://spav.ac.in/2025/studentworks/2.jpg" alt="Project 02" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+      <div class="p-4">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Project 02</h3>
+        <p class="text-sm text-gray-600 mb-2">Structural grid models using sticks, scale, and shade studies.</p>
+        <div class="flex justify-between text-sm">
+          <span class="text-green-600 font-semibold">Workshop</span>
+          <span class="text-gray-500">2024</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl transition overflow-hidden group">
+      <img src="https://spav.ac.in/2025/studentworks/4.jpg" alt="Project 03" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+      <div class="p-4">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Project 03</h3>
+        <p class="text-sm text-gray-600 mb-2">Campus circulation model with zoning, paths and nodes analysis.</p>
+        <div class="flex justify-between text-sm">
+          <span class="text-blue-600 font-semibold">Urban Design</span>
+          <span class="text-gray-500">2023</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl transition overflow-hidden group">
+      <img src="https://spav.ac.in/2025/studentworks/7.jpg" alt="Project 04" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+      <div class="p-4">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Project 04</h3>
+        <p class="text-sm text-gray-600 mb-2">Design proposal for community housing focused on courtyard dynamics.</p>
+        <div class="flex justify-between text-sm">
+          <span class="text-purple-600 font-semibold">Housing</span>
+          <span class="text-gray-500">2023</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- More Cards (Project 05 to 08) -->
+
+</section>
+
+
+
+
+<section class="py-8">
+  <div class="container mx-auto px-4">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-bold text-[#223066] flex items-center">
+        <span class="text-3xl text-gray-400 font-light mr-2">/</span> EVENTS
+      </h2>
+      <a href="https://spav.ac.in/gallery.html" class="text-blue-700 font-semibold text-sm hover:underline flex items-center">View More →</a>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Event Card 1 -->
+      <a href="https://spav.ac.in/workshop%20Computational%20Design%20and%20Digital%20Fabrication%20in%20Architecture.html" class="block group bg-white shadow hover:shadow-lg transition-all">
+        <div class="relative">
+          <img src="https://spav.ac.in/2025/slider/workshop-1.png" alt="Hands-on Workshop & International Symposium" class="w-full h-56 object-cover">
+          <div class="absolute top-0 left-0 bg-black text-white text-center px-3 py-2">
+            <div class="text-xl font-bold leading-tight">14</div>
+            <div class="text-xs uppercase tracking-wide">July 2025</div>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm group-hover:text-blue-600 transition">Hands-on Workshop & International Symposium</h3>
+        </div>
+      </a>
+
+      <!-- Event Card 2 -->
+      <a href="https://spav.ac.in/2025/slider/CPTED%20&%20AI%20in%20Urban%20Areas%20-%20National%20Conference%202025.pdf" class="block group bg-white shadow hover:shadow-lg transition-all">
+        <div class="relative">
+          <img src="https://www.spav.ac.in/2025/slider/cpted.png" alt="Flag Hoisting" class="w-full h-56 object-cover">
+          <div class="absolute top-0 left-0 bg-black text-white text-center px-3 py-2">
+            <div class="text-xl font-bold leading-tight">14</div>
+            <div class="text-xs uppercase tracking-wide">August 2024</div>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm group-hover:text-blue-600 transition">National Conference on CPTED & AI in Urban Areas</h3>
+        </div>
+      </a>
+
+      <!-- Event Card 3 -->
+      <a href="https://sites.google.com/spav.edu.in/international-day-of-yoga-spav?usp=sharing" class="block group bg-white shadow hover:shadow-lg transition-all">
+        <div class="relative">
+          <img src="https://spav.ac.in/2025/slider/YOGADAY-%20SPAV.pptx-1.png" alt="Design Show 2024" class="w-full h-56 object-cover">
+          <div class="absolute top-0 left-0 bg-black text-white text-center px-3 py-2">
+            <div class="text-xl font-bold leading-tight">30</div>
+            <div class="text-xs uppercase tracking-wide">August 2024</div>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm group-hover:text-blue-600 transition">International Day of Yoga – "Yoga Sangam 2025" Successfully Organized at SPA Vijayawada</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+        <!-- Quick Access Cards -->
+<!-- Quick Access Section (Glassmorphism Style) -->
+<section class="mt-20 px-4">
+  <h2 class="text-4xl font-extrabold text-gray-900 mb-12 text-center">Quick Access</h2>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+    <!-- Card Template: Admissions -->
+    <a href="https://www.spav.ac.in/spavadmissions.html" target="_blank" class="group bg-white/30 border border-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-6 text-center transition transform hover:-translate-y-1 hover:shadow-2xl">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white text-2xl shadow-md group-hover:scale-110 transition">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <h3 class="text-lg font-bold text-gray-900">Admissions</h3>
+      <p class="text-sm text-gray-600 mb-3">Apply Now</p>
+      <span class="inline-flex items-center text-blue-600 font-medium group-hover:underline transition">
+        Learn More <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition"></i>
+      </span>
+    </a>
+
+    <!-- Faculty -->
+    <a href="https://spav.ac.in/architecturefaculty.html" target="_blank" class="group bg-white/30 border border-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-6 text-center transition transform hover:-translate-y-1 hover:shadow-2xl">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-tr from-green-400 to-emerald-500 flex items-center justify-center text-white text-2xl shadow-md group-hover:scale-110 transition">
+        <i class="fas fa-users"></i>
+      </div>
+      <h3 class="text-lg font-bold text-gray-900">Faculty</h3>
+      <p class="text-sm text-gray-600 mb-3">Meet Our Team</p>
+      <span class="inline-flex items-center text-green-600 font-medium group-hover:underline transition">
+        Learn More <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition"></i>
+      </span>
+    </a>
+
+    <!-- Research -->
+    <a href="https://spav.ac.in/cprojects.html" target="_blank" class="group bg-white/30 border border-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-6 text-center transition transform hover:-translate-y-1 hover:shadow-2xl">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white text-2xl shadow-md group-hover:scale-110 transition">
+        <i class="fas fa-award"></i>
+      </div>
+      <h3 class="text-lg font-bold text-gray-900">Research</h3>
+      <p class="text-sm text-gray-600 mb-3">Innovation Hub</p>
+      <span class="inline-flex items-center text-purple-600 font-medium group-hover:underline transition">
+        Learn More <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition"></i>
+      </span>
+    </a>
+
+    <!-- Events -->
+    <a href="https://spav.ac.in/gallery.html" target="_blank" class="group bg-white/30 border border-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-6 text-center transition transform hover:-translate-y-1 hover:shadow-2xl">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-tr from-red-500 to-rose-500 flex items-center justify-center text-white text-2xl shadow-md group-hover:scale-110 transition">
+        <i class="fas fa-calendar"></i>
+      </div>
+      <h3 class="text-lg font-bold text-gray-900">Events</h3>
+      <p class="text-sm text-gray-600 mb-3">Upcoming</p>
+      <span class="inline-flex items-center text-red-600 font-medium group-hover:underline transition">
+        Learn More <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition"></i>
+      </span>
+    </a>
+
+  </div>
+</section>
+
+
+
+        <!-- Video Gallery -->
+        <section class="mt-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Campus Life</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="relative group cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
+                    <div class="aspect-video">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/8Pp3OOYOHe0" title="Glimpse of SPAV" allowfullscreen></iframe>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                        <h3 class="text-white font-semibold">Glimpse of SPAV</h3>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
+                    <div class="aspect-video">
+                       
+						<iframe class="w-full h-full" src="https://www.youtube.com/embed/_WFcehLNUOI?si=ssI8ckcADbt2JwOb" title="8th Convocation" allowfullscreen></iframe>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                        <h3 class="text-white font-semibold">8th Convocation</h3>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
+                    <div class="aspect-video">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/KWFw1Co-41Y" title="Swachhata Hi Seva Event" allowfullscreen></iframe>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                        <h3 class="text-white font-semibold">Swachhata Hi Seva Event</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- GoI Initiatives Logo Carousel -->
+<div class="logo-carousel-wrapper">
+  <button class="carousel-arrow left" onclick="scrollLogos('left')">&#10094;</button>
+
+  <div class="logo-carousel-track" id="logoCarouselTrack">
+    <!-- Repeat for all logos -->
+    <a href="https://ekbharat.gov.in/" target="_blank" class="logo-carousel-item">
+      <img src="2021/wbsb_logo.png" alt="EKBharat">
+    </a>
+    <a href="https://www.education.gov.in/hi/ict-initiatives" target="_blank" class="logo-carousel-item">
+      <img src="2021/moe-logo-hindi.png" alt="MoE Hindi">
+    </a>
+    <a href="https://swayam.gov.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/swayam_logo.png" alt="Swayam">
+    </a>
+    <a href="https://epgp.inflibnet.ac.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/patashala.png" alt="ePGPathshala">
+    </a>
+    <a href="http://irins.inflibnet.ac.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/rins.png" alt="IRINS">
+    </a>
+    <a href="https://www.e-yantra.org/" target="_blank" class="logo-carousel-item">
+      <img src="images/e-yantra.png" alt="e-Yantra">
+    </a>
+    <a href="https://ess.inflibnet.ac.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/eshodh.png" alt="eShodh">
+    </a>
+    <a href="https://pds.inflibnet.ac.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/shodhshudhi.png" alt="ShodhShuddhi">
+    </a>
+    <a href="https://www.swayamprabha.gov.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/swayam_prabha.png" alt="Swayam Prabha">
+    </a>
+    <a href="https://www.mygov.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/my_gov_logo.png" alt="MyGov">
+    </a>
+    <a href="https://spoken-tutorial.org/" target="_blank" class="logo-carousel-item">
+      <img src="images/spoken-tutorial.jpg" alt="Spoken Tutorial">
+    </a>
+    <a href="https://nad.digitallocker.gov.in/" target="_blank" class="logo-carousel-item">
+      <img src="2021/digiLocker_mobil.png" alt="DigiLocker">
+    </a>
+    <a href="https://data.gov.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/datagov_logo.png" alt="DataGov">
+    </a>
+    <a href="https://ndl.iitkgp.ac.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/NDL.png" alt="NDL">
+    </a>
+    <a href="nirf.html" target="_blank" class="logo-carousel-item">
+      <img src="images/nirflogo.png" alt="NIRF">
+    </a>
+    <a href="gian.html" target="_blank" class="logo-carousel-item">
+      <img src="images/gian.png" alt="GIAN">
+    </a>
+    <a href="http://www.makeinindia.com/lnewss" target="_blank" class="logo-carousel-item">
+      <img src="images/Make_In_India.png" alt="Make In India">
+    </a>
+    <a href="https://innovate.mygov.in/darpg-challenge/" target="_blank" class="logo-carousel-item">
+      <img src="images/hackathon.png" alt="Hackathon">
+    </a>
+    <a href="http://www.vlab.co.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/vlab.jpg" alt="VLab">
+    </a>
+    <a href="https://fossee.in/ship" target="_blank" class="logo-carousel-item">
+      <img src="images/fossee.png" alt="FOSSEE">
+    </a>
+    <a href="http://manodarpan.mhrd.gov.in/" target="_blank" class="logo-carousel-item">
+      <img src="images/manodarpan1.jpg" alt="Manodarpan">
+    </a>
+  </div>
+
+  <button class="carousel-arrow right" onclick="scrollLogos('right')">&#10095;</button>
+</div>
+
+
+ <script>
+        
+        
+       
+const track = document.getElementById('logoCarouselTrack');
+
+// Manual arrow scroll
+function scrollLogos(direction) {
+  const scrollAmount = 200;
+  track.scrollBy({
+    left: direction === 'left' ? -scrollAmount : scrollAmount,
+    behavior: 'smooth'
+  });
+}
+
+// Auto-scroll logic
+setInterval(() => {
+  track.scrollBy({ left: 1 });
+  // Loop back to start
+  if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
+    track.scrollTo({ left: 0 });
+  }
+}, 20);
+
+
+    </script>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-16">
+        <div class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">About SPAV</h3>
+                    <p class="text-gray-300 text-sm">
+                        An Institute of National Importance, focusing on excellence in Architecture and Planning.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Academics</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Admissions</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Departments</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">NIRF</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Results</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>Survey No. 4/4, ITI Road, Vijayawada</li>
+                        <li>Andhra Pradesh - 520008</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
+                <p>© 2025 School of Planning and Architecture, Vijayawada. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hero Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-slide');
+        const totalSlides = slides.length;
+
+        function updateSlider() {
+            const slider = document.getElementById('hero-slider');
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i === currentSlide) {
+                    dot.classList.remove('bg-opacity-50');
+                    dot.classList.add('bg-opacity-100');
+                } else {
+                    dot.classList.remove('bg-opacity-100');
+                    dot.classList.add('bg-opacity-50');
+                }
+            }
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto-play slider
+        setInterval(nextSlide, 5000);
+
+        // Student Works Slider
+        let studentWorksPosition = 0;
+        const studentWorksSlider = document.getElementById('student-works-slider');
+        const studentWorkCards = document.querySelectorAll('.student-work-card');
+        const cardWidth = 300 + 24; // card width + gap
+
+        function nextStudentWork() {
+            const maxPosition = -(cardWidth * (studentWorkCards.length - 3));
+            if (studentWorksPosition > maxPosition) {
+                studentWorksPosition -= cardWidth;
+                studentWorksSlider.style.transform = `translateX(${studentWorksPosition}px)`;
+            }
+        }
+
+        function prevStudentWork() {
+            if (studentWorksPosition < 0) {
+                studentWorksPosition += cardWidth;
+                studentWorksSlider.style.transform = `translateX(${studentWorksPosition}px)`;
+            }
+        }
+
+        // Tab functionality
+        function setActiveTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.add('hidden'));
+            
+            // Show selected tab content
+            document.getElementById(tabName + '-content').classList.remove('hidden');
+            
+            // Update tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('border-amber-500', 'text-amber-600', 'bg-amber-50');
+                button.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            // Activate selected tab button
+            const activeTab = document.getElementById(tabName + '-tab');
+            activeTab.classList.remove('border-transparent', 'text-gray-500');
+            activeTab.classList.add('border-amber-500', 'text-amber-600', 'bg-amber-50');
+        }
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            
+            mobileMenu.classList.toggle('active');
+            
+            if (mobileMenu.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+
+        function toggleSubmenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(submenuId + '-icon');
+            
+            submenu.classList.toggle('active');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Font size functionality
+        function changeFontSize(size) {
+            const body = document.body;
+            body.classList.remove('text-sm', 'text-base', 'text-lg');
+            
+            if (size === 'sm') {
+                body.classList.add('text-sm');
+            } else if (size === 'lg') {
+                body.classList.add('text-lg');
+            } else {
+                body.classList.add('text-base');
+            }
+        }
+
+        // Initialize
+        updateSlider();
+    </script>
+
+<!-- Tab Contents -->
+<div id="tab-contents" class="relative mt-6 max-h-[460px] overflow-y-auto pr-2 space-y-4">
+    <div class="tab-content" id="latest">
+        <!-- Latest Notifications content goes here (already working) -->
+    </div>
+    <div class="tab-content hidden" id="circulars">
+        <!-- Circulars / Orders content goes here -->
+    </div>
+    <div class="tab-content hidden" id="recruitment">
+
+<ul class="space-y-3 text-sm text-gray-700">
+    <li class="flex items-start space-x-3">
+        <img src="images/arrow.png" alt="arrow">
+        <a href="/2025/recruit/Results of Online Interview Conducted for Post of Research Assistant- TRP Project.pdf" target="_blank" class="hover:text-orange-600 font-medium">
+            Results of Online Interview Conducted for Post of Research Assistant - TRP Project.
+        </a>
+        <img src="https://spav.ac.in/2024/images/new.gif" alt="new">
+    </li>
+    <li class="flex items-start space-x-3">
+        <img src="images/arrow.png" alt="arrow">
+        <a href="/2025/recruit/Eligible and Ineligible List of Candidates for the Position of Research Assistant in Tiruchirappalli Regional Planning Project.pdf" target="_blank" class="hover:text-orange-600 font-medium">
+            Eligible and Ineligible List of Candidates for the Position of Research Assistant in Tiruchirappalli Regional Planning Project.
+        </a>
+        <img src="https://spav.ac.in/2024/images/new.gif" alt="new">
+    </li>
+    <li class="flex items-start space-x-3">
+        <img src="images/arrow.png" alt="arrow">
+        <a href="/2025/recruit/Advertisment for the Post of Research Assistant in Tiruchirappalli Regional Planning Project on Purely Contract Basis on 21.05.2025.pdf" target="_blank" class="hover:text-orange-600 font-medium">
+            Advertisement for the Post of Research Assistant in Tiruchirappalli Regional Planning Project on Purely Contract Basis.
+        </a>
+        <img src="https://spav.ac.in/2024/images/new.gif" alt="new">
+    </li>
+    <li class="flex items-start space-x-3">
+        <img src="images/arrow.png" alt="arrow">
+        <a href="/2025/recruit/Results of Internship for online and offline interview conducted on 06.05.2025 for TRP Project.pdf" target="_blank" class="hover:text-orange-600 font-medium">
+            Results of Internship for online and offline interview conducted on 06.05.2025 for TRP Project.
+        </a>
+        <img src="https://spav.ac.in/2024/images/new.gif" alt="new">
+    </li>
+    <li class="flex items-start space-x-3">
+        <img src="images/arrow.png" alt="arrow">
+        <a href="/2025/recruit/Advertisement for Project Assistants-SPAV.pdf" target="_blank" class="hover:text-orange-600 font-medium">
+            Advertisement for Project Assistants – “Reorganisation of Central Reception Office, Tirumala (Short Term Urban Design Plan)”.
+        </a>
+        <img src="https://spav.ac.in/2024/images/new.gif" alt="new">
+    </li>
+</ul>
+
+</div>
+    <div class="tab-content hidden" id="tender">
+        <!-- Tender content goes here -->
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll("[data-tab]");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        tabs.forEach((tab) => {
+            tab.addEventListener("click", () => {
+                // Remove active styling
+                tabs.forEach(t => {
+                    t.classList.remove("bg-orange-50", "font-semibold", "text-orange-600");
+                });
+
+                // Hide all tab contents
+                tabContents.forEach(tc => tc.classList.add("hidden"));
+
+                // Activate clicked tab and show its content
+                tab.classList.add("bg-orange-50", "font-semibold", "text-orange-600");
+                const contentId = tab.getAttribute("data-tab");
+                document.getElementById(contentId).classList.remove("hidden");
+            });
+        });
+    });
+</script>
+
+
+<script>
+  function setActiveTab(tab) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(tabContent => {
+      tabContent.classList.add('hidden');
+    });
+
+    // Remove active styles from all tab buttons
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.classList.remove('border-amber-500', 'text-amber-600', 'bg-amber-50');
+      button.classList.add('border-transparent', 'text-gray-500');
+    });
+
+    // Show selected tab content
+    const activeContent = document.getElementById(`${tab}-content`);
+    if (activeContent) {
+      activeContent.classList.remove('hidden');
+    }
+
+    // Highlight active tab button
+    const activeTab = document.getElementById(`${tab}-tab`);
+    if (activeTab) {
+      activeTab.classList.add('border-amber-500', 'text-amber-600', 'bg-amber-50');
+      activeTab.classList.remove('border-transparent', 'text-gray-500');
+    }
+  }
+
+  // Optional: Set default tab on load
+  document.addEventListener('DOMContentLoaded', function () {
+    setActiveTab('notifications');
+  });
+</script>
+
+</body>
+</html>
